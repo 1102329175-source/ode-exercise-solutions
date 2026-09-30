@@ -1,0 +1,560 @@
+% !TEX program = xelatex
+% 本文件为第五章独立解答，建议使用 XeLaTeX 编译。
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+\usepackage[a4paper,margin=2.15cm,headheight=16pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor,fancyhdr,hyperref}
+\usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,decorations.markings}
+\definecolor{navy}{HTML}{264B86}
+\definecolor{blue}{HTML}{356BA8}
+\definecolor{pink}{HTML}{B84F82}
+\definecolor{palepink}{HTML}{FBEAF2}
+\definecolor{pale}{HTML}{EAF3FB}
+\definecolor{gray}{HTML}{536171}
+\hypersetup{colorlinks=true,linkcolor=navy,urlcolor=blue,
+  pdftitle={常微分方程（第三版）第五章习题详细解答}}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\setlist[enumerate]{leftmargin=2.2em,itemsep=0.45em,topsep=0.35em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}《常微分方程》（第三版）习题解答}
+\fancyhead[R]{\small\color{pink}第五章·定性和稳定性理论简介}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\newcommand{\e}{\mathrm e}
+\newcommand{\R}{\mathbb R}
+\newcommand{\note}[1]{\par\smallskip\noindent\textcolor{pink}{\bfseries 说明：}#1\par\smallskip}
+\tcbset{
+  exercisebox/.style={enhanced,breakable,arc=0pt,outer arc=0pt,
+    boxsep=0pt,left=10pt,right=10pt,top=10pt,bottom=10pt,
+    before skip=10pt,after skip=6pt,
+    coltitle=navy,fonttitle=\bfseries,toptitle=6pt,bottomtitle=6pt,
+    titlerule=0.4pt}
+}
+\newtcolorbox{problem}[1]{exercisebox,
+  colback=white,colframe=blue,colbacktitle=pale,
+  boxrule=0.55pt,leftrule=2pt,
+  title={题目\quad #1}}
+\newtcolorbox{solution}{exercisebox,
+  colback=palepink!15!white,colframe=pink,colbacktitle=palepink,
+  boxrule=0.45pt,leftrule=2pt,
+  title={解答}}
+\newtcolorbox{analysis}{exercisebox,
+  colback=pale!30!white,colframe=blue,colbacktitle=pale,
+  boxrule=0.4pt,leftrule=2pt,
+  title={分析}}
+\newcommand{\sect}[1]{\section*{\textcolor{navy}{习题 #1}}}
+\tikzset{
+  orbit/.style={draw=blue,thick,postaction={decorate},
+    decoration={markings,mark=at position 0.58 with {\arrow{Stealth}}}},
+  eig/.style={draw=pink,thin},
+  ax/.style={draw=gray!65,->,thin}
+}
+\newcommand{\phaseaxes}{
+  \draw[ax] (-1.48,0)--(1.5,0) node[right] {$x$};
+  \draw[ax] (0,-1.35)--(0,1.38) node[above] {$y$};
+  \fill[navy] (0,0) circle (1.3pt);
+}
+
+\begin{document}
+\begin{center}
+  {\LARGE\bfseries\color{navy}常微分方程（第三版）第五章习题解答\par}
+  \vspace{0.35em}
+  {\color{pink}定性和稳定性理论简介 · 习题 5.2--5.4\par}
+\end{center}
+\begin{center}
+  \small\color{gray}本答案使用 AI 工具制作，请读者确认正确性后再使用。除非题目另有说明，本稿接受隐式解。
+\end{center}
+\noindent\textcolor{gray}{\small 原书第五章无“习题 5.1”，习题从 5.2 开始。}
+
+\sect{5.2}
+
+\begin{problem}{5.2-1}
+对于方程组
+\[
+\begin{cases}
+\dot{x}_1=-x_1x_2^4,\\
+\dot{x}_2=x_2x_1^4,
+\end{cases}
+\]
+试说明 $V(x_1,x_2)=x_1^4+x_2^4$ 是正定的，而 $\dfrac{dV}{dt}$ 是常负的。
+\end{problem}
+\begin{solution}
+$V(0,0)=0$；只要 $(x_1,x_2)\ne(0,0)$，两个四次方至少有一个严格为正，所以 $V(x_1,x_2)>0$。这说明 $V$ 正定。
+沿解求导，得到
+\[
+\frac{\mathrm dV}{\mathrm dt}
+=4x_1^3(-x_1x_2^4)+4x_2^3(x_2x_1^4)
+=-4x_1^4x_2^4+4x_1^4x_2^4=0.
+\]
+原书定义中的“常负”意为处处小于或等于零，故恒等于零也符合要求。
+\note{这里不能把“常负”理解成“负定”。因为 $\dot V\equiv0$，只由本题计算可说明零解稳定，不能据此断言它渐近稳定。实际上坐标轴上的点均为平衡点，零解不渐近稳定。}
+\end{solution}
+
+
+
+\begin{problem}{5.2-2}
+讨论方程组
+\[
+\begin{cases}
+\dot{x}_1=-4x_2-x_1^3,\\
+\dot{x}_2=3x_1-x_2^3
+\end{cases}
+\]
+零解的稳定性。
+\end{problem}
+\begin{solution}
+线性部分的交叉项系数为 $-4$ 和 $3$，取相应权重消去它们。令
+\[
+V(x_1,x_2)=3x_1^2+4x_2^2.
+\]
+它在原点正定，沿方程组的导数为
+\[
+\begin{aligned}
+\dot V
+&=6x_1(-4x_2-x_1^3)+8x_2(3x_1-x_2^3)\\
+&=-24x_1x_2-6x_1^4+24x_1x_2-8x_2^4\\
+&=-6x_1^4-8x_2^4.
+\end{aligned}
+\]
+当 $(x_1,x_2)\ne(0,0)$ 时，$\dot V<0$。由本节的李雅普诺夫直接法，\textbf{零解渐近稳定}。
+\note{配套参考书写 $V=x_1^2+x_2^2$，但此时 $\dot V=-2x_1x_2-2x_1^4-2x_2^4$，在原点附近并非常负；直接使用该函数不能得到其结论。}
+\end{solution}
+
+\begin{problem}{5.2-3}
+讨论方程组
+\[
+\begin{cases}
+\dot{x}_1=-Ax_1-x_2^2,\\
+\dot{x}_2=Ax_2-x_1^2x_2
+\end{cases}
+\]
+零解的稳定性。
+\end{problem}
+\begin{solution}
+\textbf{当 $A<0$ 时，}令 $x_2(0)=0$。由第二式及解的唯一性，$x_2(t)\equiv0$，于是
+\[
+x_1(t)=x_1(0)\e^{-At}.
+\]
+由于 $-A>0$，任意小的非零 $x_1(0)$ 都沿 $x_1$ 轴远离原点，故零解不稳定。
+
+\textbf{当 $A>0$ 时，}在原点附近取 $|x_1|<\sqrt{A/2}$。由第二式
+\[
+\frac{\mathrm d}{\mathrm dt}|x_2|
+=(A-x_1^2)|x_2|
+>\frac A2|x_2|\qquad(x_2\ne0).
+\]
+取任意小的初值 $(x_1(0),x_2(0))=(0,\eta)$，$\eta\ne0$。只要轨线一直留在半径小于 $\sqrt{A/2}$ 的固定小邻域内，上式就使 $|x_2(t)|\ge|\eta|\e^{At/2}$，最终超过该邻域半径。因此轨线必离开这个邻域，零解不稳定。
+
+\textbf{当 $A=0$ 时，}方程组成为
+\[
+\dot x_1=-x_2^2,\qquad \dot x_2=-x_1^2x_2.
+\]
+因为
+\[
+\frac{\mathrm d}{\mathrm dt}
+\left(\frac{x_1^3}{3}-\frac{x_2^2}{2}\right)
+=x_1^2(-x_2^2)-x_2(-x_1^2x_2)=0,
+\]
+且 $\dfrac{\mathrm d}{\mathrm dt}x_2^2=-2x_1^2x_2^2\le0$，对 $t\ge0$ 有
+\[
+|x_2(t)|\le |x_2(0)|,\qquad
+|x_1(t)|^3\le |x_1(0)|^3+\frac32x_2(0)^2.
+\]
+右端随初值趋于原点而趋于零，因此给定任意小邻域，充分小的初值会始终留在其中。零解\textbf{稳定}。但 $x_2=0$ 上的每个点都是平衡点，故零解\textbf{不渐近稳定}。
+
+综上，$A\ne0$ 时零解不稳定，$A=0$ 时稳定但不渐近稳定。
+\note{原书题干与已抄题一致。配套参考书称 $A<0$ 时零解渐近稳定，与方程组矛盾；例如 $x_2=0$ 上的解已给出直接反例。}
+\end{solution}
+
+\sect{5.3}
+
+\begin{problem}{5.3}
+通过求解，画出下列各方程的相图，并确定奇点的稳定性：
+\[
+\begin{aligned}
+(1)\quad&
+\begin{cases}
+\dfrac{\mathrm dx}{\mathrm dt}=-2x,\\
+\dfrac{\mathrm dy}{\mathrm dt}=-3y;
+\end{cases}
+&
+(2)\quad&
+\begin{cases}
+\dfrac{\mathrm dx}{\mathrm dt}=3x,\\
+\dfrac{\mathrm dy}{\mathrm dt}=x+3y;
+\end{cases}\\[12pt]
+(3)\quad&
+\begin{cases}
+\dfrac{\mathrm dx}{\mathrm dt}=y,\\
+\dfrac{\mathrm dy}{\mathrm dt}=-x;
+\end{cases}
+&
+(4)\quad&
+\begin{cases}
+\dfrac{\mathrm dx}{\mathrm dt}=2x+3y,\\
+\dfrac{\mathrm dy}{\mathrm dt}=x+3y.
+\end{cases}
+\end{aligned}
+\]
+\end{problem}
+\begin{solution}
+四个方程组的系数矩阵行列式均不为零，因此每个方程组只有原点这一个奇点。下面分别求解；文末给出相图示意。
+\begin{enumerate}[label=(\arabic*)]
+\item 两式可直接积分：
+\[
+x=C_1\e^{-2t},\qquad y=C_2\e^{-3t}.
+\]
+当 $C_1\ne0$ 时，消去 $t$ 得
+\[
+y=K|x|^{3/2},\qquad K=\frac{C_2}{|C_1|^{3/2}}.
+\]
+坐标轴也是轨线。所有非零轨线随 $t\to+\infty$ 趋于原点；除 $y$ 轴外，靠近原点时 $|y/x|\to0$，故趋近方向与 $x$ 轴相切。原点是\textbf{渐近稳定的结点}。
+
+\item 第一式给出 $x=C_1\e^{3t}$。将它代入第二式，或对第二式使用积分因子 $\e^{-3t}$，得
+\[
+y=(C_2+C_1t)\e^{3t}.
+\]
+$C_1\ne0$ 时，轨线还可写成
+\[
+y=x\left(C+\frac13\ln|x|\right).
+\]
+$x=0$ 是一条直线轨线。所有非零解在 $t\to-\infty$ 时趋于原点，在正向时间则离开原点。非直线轨线靠近原点时 $|y/x|\to\infty$，与 $y$ 轴相切。由于重特征值 $3$ 只有一个特征向量，原点是\textbf{不稳定的退化结点}。
+
+\item 由 $x'=y$ 得 $x''=-x$，故
+\[
+x=C_1\cos t+C_2\sin t,\qquad
+y=-C_1\sin t+C_2\cos t.
+\]
+于是 $x^2+y^2=C_1^2+C_2^2$，非零轨线都是以原点为圆心的圆。由 $(x,y)=(r,0)$ 处 $y'=-r<0$ 知正向沿\textbf{顺时针}绕行。原点是\textbf{稳定但不渐近稳定的中心}。
+
+\item 系数矩阵及特征值为
+\[
+B=\begin{pmatrix}2&3\\1&3\end{pmatrix},\qquad
+\lambda_\pm=\frac{5\pm\sqrt{13}}2>0.
+\]
+取特征向量 $v_\pm=(1,m_\pm)^{\mathsf T}$，其中
+\[
+m_\pm=\frac{\lambda_\pm-2}{3}
+=\frac{1\pm\sqrt{13}}6.
+\]
+通解为
+\[
+\binom{x}{y}
+=C_+\e^{\lambda_+t}\binom{1}{m_+}
+ +C_-\e^{\lambda_-t}\binom{1}{m_-}.
+\]
+两条特征直线 $y=m_\pm x$ 都是轨线。其余轨线在 $t\to-\infty$ 时趋于原点，方向与慢特征直线 $y=m_-x$ 相切；正向时间逐渐沿快特征方向 $y=m_+x$ 离开。原点是\textbf{不稳定的结点}。
+\end{enumerate}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.13]
+  \begin{scope}[shift={(0,3.3)}]
+    \phaseaxes
+    \foreach \sx/\sy in {1/1,1/-1,-1/1,-1/-1}{
+      \draw[orbit,domain=0:1.65,samples=35,variable=\u]
+        plot ({\sx*1.12*exp(-2*\u)},{\sy*0.9*exp(-3*\u)});
+    }
+    \draw[orbit,->] (1.27,0)--(.18,0);
+    \draw[orbit,->] (-1.27,0)--(-.18,0);
+    \draw[orbit,->] (0,1.1)--(0,.18);
+    \draw[orbit,->] (0,-1.1)--(0,-.18);
+    \node at (0,-1.72) {(1) 稳定结点};
+  \end{scope}
+  \begin{scope}[shift={(4.2,3.3)}]
+    \phaseaxes
+    \foreach \s in {1,-1}{
+      \draw[orbit,domain=-2:0.55,samples=45,variable=\u]
+        plot ({\s*0.23*exp(3*\u)},{\s*0.23*\u*exp(3*\u)});
+      \draw[orbit,domain=-2:0.43,samples=45,variable=\u]
+        plot ({\s*0.23*exp(3*\u)},{\s*(0.23*\u+0.12)*exp(3*\u)});
+    }
+    \draw[orbit,->] (0,.15)--(0,1.16);
+    \draw[orbit,->] (0,-.15)--(0,-1.16);
+    \node at (0,-1.72) {(2) 不稳定退化结点};
+  \end{scope}
+  \begin{scope}[shift={(0,-1.0)}]
+    \phaseaxes
+    \foreach \r in {.42,.75,1.1}{
+      \draw[orbit,->] (\r,0) arc[start angle=0,end angle=-325,radius=\r];
+    }
+    \node at (0,-1.72) {(3) 稳定中心};
+  \end{scope}
+  \begin{scope}[shift={(4.2,-1.0)}]
+    \phaseaxes
+    \draw[eig] (-1.25,-.96)--(1.25,.96);
+    \draw[eig] (-1.25,.54)--(1.25,-.54);
+    \foreach \s in {1,-1}{
+      \draw[orbit,domain=-3:0.2,samples=45,variable=\u]
+        plot ({\s*(0.2*exp(4.3028*\u)+0.5*exp(.6972*\u))},
+              {\s*(.1535*exp(4.3028*\u)-.2171*exp(.6972*\u))});
+      \draw[orbit,domain=-3:0.2,samples=45,variable=\u]
+        plot ({\s*(0.2*exp(4.3028*\u)-0.5*exp(.6972*\u))},
+              {\s*(.1535*exp(4.3028*\u)+.2171*exp(.6972*\u))});
+    }
+    \node at (0,-1.72) {(4) 不稳定结点};
+  \end{scope}
+\end{tikzpicture}
+\par\smallskip
+{\small\color{gray}图：相图示意；蓝线箭头为正向时间，粉线为特征方向。}
+\end{center}
+\end{solution}
+\sect{5.4}
+
+\begin{problem}{5.4-1}
+确定下列各方程的奇点类型、轨线分布以及稳定性：
+\begin{enumerate}[label=(\arabic*)]
+\item $\begin{cases}\dfrac{\mathrm dx}{\mathrm dt}=x-3y,\\[3pt]\dfrac{\mathrm dy}{\mathrm dt}=3x-4y;\end{cases}$
+\item $\begin{cases}\dfrac{\mathrm dx}{\mathrm dt}=2x-y,\\[3pt]\dfrac{\mathrm dy}{\mathrm dt}=4x-y;\end{cases}$
+\item $\begin{cases}\dfrac{\mathrm dx}{\mathrm dt}=2x+y,\\[3pt]\dfrac{\mathrm dy}{\mathrm dt}=3x-2y;\end{cases}$
+\item $\begin{cases}\dfrac{\mathrm dx}{\mathrm dt}=x+2y,\\[3pt]\dfrac{\mathrm dy}{\mathrm dt}=-y;\end{cases}$
+\item $\begin{cases}\dfrac{\mathrm dx}{\mathrm dt}=-y,\\[3pt]\dfrac{\mathrm dy}{\mathrm dt}=x(a^2-x^2)+by,\end{cases}
+\quad a,b\ne0,\quad b^2-4a^2\ne0$；
+\item $\begin{cases}\dfrac{\mathrm dx}{\mathrm dt}=y,\\[3pt]\dfrac{\mathrm dy}{\mathrm dt}=-ay+b\sin x,\end{cases}
+\quad b>0$。
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 系数矩阵
+$B=\begin{pmatrix}1&-3\\3&-4\end{pmatrix}$
+的迹为 $-3$，行列式为 $5$，特征方程为
+\[
+\lambda^2+3\lambda+5=0,\qquad
+\lambda_\pm=\frac{-3\pm\mathrm i\sqrt{11}}2.
+\]
+为了把特征根和轨线联系起来，令 $K=B+\frac32I$，则直接相乘可得
+$K^2=-\frac{11}{4}I$。将指数级数的偶次项、奇次项分别相加，得到任意初值 $X_0=(x_0,y_0)^{\mathsf T}$ 对应的解
+\[
+X(t)=\e^{-3t/2}
+\left[
+\cos\frac{\sqrt{11}t}{2}\,I+
+\frac{2}{\sqrt{11}}\sin\frac{\sqrt{11}t}{2}\,K
+\right]X_0.
+\]
+中括号内的矩阵有界，所有轨线正向趋于原点。在正 $x$ 轴附近，向量 $(x',y')=(x,3x)$ 指向上方，因此轨线\textbf{逆时针向内螺旋}；原点为\textbf{渐近稳定的焦点}。
+
+\item 此时
+$B=\begin{pmatrix}2&-1\\4&-1\end{pmatrix}$，
+$\operatorname{tr}B=1$，$\det B=2$，故
+\[
+\lambda_\pm=\frac{1\pm\mathrm i\sqrt7}{2}.
+\]
+令 $K=B-\frac12I$，则 $K^2=-\frac74I$，解为
+\[
+X(t)=\e^{t/2}
+\left[
+\cos\frac{\sqrt7t}{2}\,I+
+\frac{2}{\sqrt7}\sin\frac{\sqrt7t}{2}\,K
+\right]X_0.
+\]
+中括号内的矩阵周期且始终可逆，其逆矩阵也有界；因此非零解的长度至少按常数倍 $\e^{t/2}$ 增大。在正 $x$ 轴附近 $(x',y')=(2x,4x)$ 指向上方，故轨线\textbf{逆时针向外螺旋}；原点为\textbf{不稳定的焦点}。
+
+\item
+$B=\begin{pmatrix}2&1\\3&-2\end{pmatrix}$ 的迹为 $0$、行列式为 $-7$，特征值为 $\lambda_\pm=\pm\sqrt7$。
+由 $(2-\lambda)x+y=0$，相应的特征方向是
+\[
+y=(\sqrt7-2)x\quad(\lambda_+=\sqrt7),\qquad
+y=-(\sqrt7+2)x\quad(\lambda_-=-\sqrt7).
+\]
+因此通解可写作
+\[
+\binom{x}{y}
+=C_+\e^{\sqrt7t}\binom{1}{\sqrt7-2}
+ +C_-\e^{-\sqrt7t}\binom{1}{-\sqrt7-2}.
+\]
+第二条直线上的轨线正向进入原点，第一条直线上的轨线正向离开原点；其余轨线位于这两条分界线划成的四个扇形区域内，正向最终沿离开方向走远。原点为\textbf{不稳定的鞍点}。
+
+\item 第二式先给出 $y=C_2\e^{-t}$。将它代入 $x'-x=2y$，乘积分因子 $\e^{-t}$ 后积分，得
+\[
+x=C_1\e^t-C_2\e^{-t},\qquad y=C_2\e^{-t}.
+\]
+直线 $y=0$ 是正向离开的特征轨线，直线 $x=-y$ 是正向进入的特征轨线；其他轨线分布在这两条线分出的四个扇形区域。原点为\textbf{不稳定的鞍点}。
+
+\item 由 $x'=-y=0$ 得 $y=0$，再由 $x(a^2-x^2)=0$ 得到三个奇点
+\[
+(0,0),\qquad(a,0),\qquad(-a,0).
+\]
+在任一 $(x_*,0)$ 附近，线性化矩阵是
+\[
+B(x_*)=
+\begin{pmatrix}0&-1\\ a^2-3x_*^2&b\end{pmatrix}.
+\]
+在原点，它的特征方程及根为
+\[
+\lambda^2-b\lambda+a^2=0,\qquad
+\lambda_\pm=\frac{b\pm\sqrt{b^2-4a^2}}2.
+\]
+题设排除了重根。由根的实部及实、复情形，得到
+\[
+\begin{array}{c|c|c}
+ &b^2>4a^2&b^2<4a^2\\ \hline
+b<0&\text{渐近稳定的结点}&\text{渐近稳定的焦点}\\
+b>0&\text{不稳定的结点}&\text{不稳定的焦点}
+\end{array}
+\]
+在 $(\pm a,0)$，行列式为 $-2a^2<0$，特征值一正一负，故两点都是\textbf{不稳定的鞍点}。它们的特征值为
+$\bigl(b\pm\sqrt{b^2+8a^2}\bigr)/2$；
+每个鞍点附近有两条相交的特征方向，分别供轨线正向进入和离开。
+
+为说明各类轨线的方向，取
+\[
+E(x,y)=\frac12y^2+\frac12a^2x^2-\frac14x^4.
+\]
+沿解求导并代入 $x'=-y$，得到
+\[
+\dot E
+=y\bigl[x(a^2-x^2)+by\bigr]+(a^2x-x^3)(-y)
+=by^2.
+\]
+所以 $b<0$ 时非平衡轨线的能量正向下降，$b>0$ 时上升；非平凡闭轨线不可能存在。原点附近若为焦点，轨线按 $(x>0,y=0)$ 处 $y'=a^2x>0$ 所确定的逆时针方向螺旋；若为结点，轨线沿两条实特征方向进入或离开。在两鞍点附近，轨线受其进入、离开分界线分隔。以上给出了三个奇点附近的轨线分布和箭头方向。
+
+\item 令 $y=0$，则 $\sin x=0$，所以全部奇点为
+\[
+(k\pi,0),\qquad k\in\mathbb Z.
+\]
+线性化矩阵为
+\[
+B_k=\begin{pmatrix}0&1\\ b(-1)^k&-a\end{pmatrix}.
+\]
+当 $k=2j$ 时，$\det B_k=-b<0$，所以每个 $(2j\pi,0)$ 都是\textbf{不稳定的鞍点}。
+当 $k=2j+1$ 时，$\det B_k=b>0$，特征方程是
+\[
+\lambda^2+a\lambda+b=0.
+\]
+对这些奇点，若 $a>0$，则渐近稳定；若 $a<0$，则不稳定。进一步按判别式细分：
+\[
+\begin{array}{c|c|c}
+ &a^2>4b&a^2<4b\\ \hline
+a>0&\text{稳定结点}&\text{稳定焦点}\\
+a<0&\text{不稳定结点}&\text{不稳定焦点}
+\end{array}
+\]
+表中的“稳定结点、焦点”均为渐近稳定。若 $a^2=4b$，则 $a\ne0$，矩阵有一个重特征值 $-a/2$ 而只有一个特征方向，是退化结点；$a>0$ 时渐近稳定，$a<0$ 时不稳定。
+
+当 $a=0$ 时，线性化在奇数点有纯虚根，不能仅凭它判定。此时取
+\[
+H(x,y)=\frac12y^2+b\cos x,\qquad
+\dot H=y(-ay+b\sin x)-b\sin x\,x'=-ay^2.
+\]
+$a=0$ 时 $H$ 沿轨线不变；$b\cos x$ 在奇数点有严格局部极小值，附近的能量曲线是闭轨线，故每个奇数点是\textbf{稳定但不渐近稳定的中心}。能量等于 $b$ 的曲线经过偶数鞍点，构成分界轨线；能量低于 $b$ 的邻近闭曲线围绕奇数中心。在奇数点右侧的 $x$ 轴上有 $y'<0$，所以闭轨线按顺时针方向绕行。当 $a\ne0$ 时，$H$ 随正向时间严格下降或上升（非平衡轨线上除离散时刻外），闭轨线消失；鞍点的分界轨线与奇数点附近的螺旋线或结点曲线构成相图。对任一不在奇点处的 $x$ 轴点，$y'=b\sin x$，故也可据其正负确定各区间的箭头方向。
+\end{enumerate}
+\note{第 (5) 小题的 $b^2-4a^2\ne0$ 排除了原点处重特征值；第 (6) 小题仅规定 $b>0$，故必须包括 $a=0$ 和 $a^2=4b$。}
+\end{solution}
+
+\begin{problem}{5.4-2}
+确定方程组
+\[
+\begin{cases}
+\dfrac{\mathrm dx}{\mathrm dt}
+=y+\dfrac{x}{\sqrt{x^2+y^2}}\bigl[1-(x^2+y^2)\bigr],\\[7pt]
+\dfrac{\mathrm dy}{\mathrm dt}
+=-x+\dfrac{y}{\sqrt{x^2+y^2}}\bigl[1-(x^2+y^2)\bigr]
+\end{cases}
+\]
+的极限环及其稳定性。
+\end{problem}
+\begin{solution}
+方程右端在原点无定义，所以先在 $r=\sqrt{x^2+y^2}>0$ 的定义域内令
+$x=r\cos\theta,\ y=r\sin\theta$。由
+\[
+\dot r=\frac{x\dot x+y\dot y}{r},\qquad
+\dot\theta=\frac{x\dot y-y\dot x}{r^2}
+\]
+逐项代入，交叉项 $xy-xy$ 抵消，得到
+\[
+\boxed{\dot r=1-r^2,\qquad \dot\theta=-1.}
+\]
+当 $r=1$ 时半径不变，角度随时间匀速下降，故单位圆
+$x^2+y^2=1$ 是周期为 $2\pi$ 的\textbf{顺时针闭轨线}。
+在 $0<r<1$ 内有 $\dot r>0$，轨线向单位圆靠近；在 $r>1$ 外有 $\dot r<0$，轨线也向单位圆靠近。因此单位圆是\textbf{从内、外两侧均吸引的稳定极限环}。因 $r$ 在其他位置严格单调，那里不可能有闭轨线，故这是唯一极限环。
+\note{参考书把 $r=0$ 也列为奇点；按题面原式，原点处的分母为零，原点不属于方程的定义域。}
+\end{solution}
+
+\begin{problem}{5.4-3}
+确定方程组
+\[
+\begin{cases}
+\dfrac{\mathrm dx}{\mathrm dt}=-y+x(x^2+y^2-1),\\[4pt]
+\dfrac{\mathrm dy}{\mathrm dt}=x+y(x^2+y^2-1)
+\end{cases}
+\]
+的极限环及其稳定性。
+\end{problem}
+\begin{solution}
+此方程组在整个平面都有定义。对 $r>0$ 仍用
+$x=r\cos\theta,\ y=r\sin\theta$，代入极坐标求导公式，得
+\[
+\boxed{\dot r=r(r^2-1),\qquad \dot\theta=1.}
+\]
+$r=1$ 给出单位圆上的\textbf{逆时针}周期轨线，周期为 $2\pi$。若 $0<r<1$，则 $\dot r<0$，轨线正向趋向原点而远离单位圆；若 $r>1$，则 $\dot r>0$，轨线正向离开单位圆。故 $x^2+y^2=1$ 是\textbf{不稳定的极限环}，并且是唯一极限环。$r=0$ 对应原点这个渐近稳定的平衡点，不是极限环。
+\end{solution}
+
+\begin{problem}{5.4-4}
+确定方程组
+\[
+\begin{cases}
+\dfrac{\mathrm dx}{\mathrm dt}
+=x(x^2+y^2)^{1/2}(x^2+y^2-1)^2+y,\\[6pt]
+\dfrac{\mathrm dy}{\mathrm dt}
+=y(x^2+y^2)^{1/2}(x^2+y^2-1)^2-x
+\end{cases}
+\]
+的极限环及其稳定性。
+\end{problem}
+\begin{solution}
+记 $r=\sqrt{x^2+y^2}$。对于 $r>0$，两式分别乘 $x,y$ 后相加，以及交叉相减，可得
+\[
+\begin{aligned}
+\dot r
+&=\frac{x\dot x+y\dot y}{r}
+=r^2(r^2-1)^2,\\
+\dot\theta
+&=\frac{x\dot y-y\dot x}{r^2}=-1.
+\end{aligned}
+\]
+所以 $r=1$ 是\textbf{顺时针}周期轨线，周期为 $2\pi$。
+在 $0<r<1$ 时，$\dot r>0$，半径单调增大且不能越过平衡半径 $1$。若其极限小于 $1$，则 $\dot r$ 在极限附近仍有正下界，与收敛矛盾，故从内侧趋向单位圆；在 $r>1$ 时，$\dot r>0$，轨线从外侧离开单位圆。因此
+\[
+\boxed{x^2+y^2=1\quad\text{是半稳定极限环：内侧吸引，外侧排斥。}}
+\]
+$r$ 在其余正半径处严格增大，不会给出其他闭轨线。$r=0$ 是平衡点，且附近的非零轨线向外移动，故原点不稳定。
+
+\begin{center}
+\begin{tikzpicture}[scale=1.08]
+  \foreach \panelx/\paneln/\panellabel in {0/2/两侧吸引,3.65/3/两侧排斥,7.3/4/内吸外斥}{
+    \begin{scope}[shift={(\panelx,0)}]
+      \draw[gray!55,thin] (-1.48,0)--(1.48,0);
+      \draw[gray!55,thin] (0,-1.18)--(0,1.18);
+      \draw[blue,thick] (0,0) circle (.86);
+      \fill[navy] (0,0) circle (1pt);
+      \node[below] at (0,-1.27) {5.4-\paneln：\panellabel};
+    \end{scope}
+  }
+  \begin{scope}
+    \draw[orbit] (.18,0)--(.68,0);
+    \draw[orbit] (1.42,0)--(1.02,0);
+    \draw[blue,thick,-{Stealth}] (90:.86) arc[start angle=90,end angle=25,radius=.86];
+  \end{scope}
+  \begin{scope}[shift={(3.65,0)}]
+    \draw[orbit] (.68,0)--(.18,0);
+    \draw[orbit] (1.02,0)--(1.42,0);
+    \draw[blue,thick,-{Stealth}] (90:.86) arc[start angle=90,end angle=155,radius=.86];
+  \end{scope}
+  \begin{scope}[shift={(7.3,0)}]
+    \draw[orbit] (.18,0)--(.68,0);
+    \draw[orbit] (1.02,0)--(1.42,0);
+    \draw[blue,thick,-{Stealth}] (90:.86) arc[start angle=90,end angle=25,radius=.86];
+  \end{scope}
+\end{tikzpicture}
+\par\smallskip
+{\small\color{gray}图：单位圆极限环两侧的径向运动及绕行方向。}
+\end{center}
+\end{solution}
+
+\end{document}

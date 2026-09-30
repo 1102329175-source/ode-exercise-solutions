@@ -1,0 +1,1903 @@
+% !TEX program = xelatex
+% 本文件为第一章独立解答。建议用 XeLaTeX 编译两次。
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+\usepackage[a4paper,margin=2.15cm,headheight=16pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{booktabs,longtable,array,enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor,fancyhdr,hyperref}
+\usepackage{microtype}
+\definecolor{navy}{HTML}{264B86}
+\definecolor{blue}{HTML}{356BA8}
+\definecolor{pink}{HTML}{B84F82}
+\definecolor{palepink}{HTML}{FBEAF2}
+\definecolor{pale}{HTML}{EAF3FB}
+\definecolor{gray}{HTML}{536171}
+\hypersetup{colorlinks=true,linkcolor=navy,urlcolor=blue,pdftitle={常微分方程（第三版）第一章习题详细解答}}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\setlist[enumerate]{leftmargin=2.2em,itemsep=0.45em,topsep=0.35em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}《常微分方程》（第三版）习题解答}
+\fancyhead[R]{\small\color{pink}第一章·初等积分法}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\e}{\mathrm e}
+\newcommand{\R}{\mathbb R}
+\newcommand{\note}[1]{\par\smallskip\noindent\textcolor{pink}{\bfseries 说明：}#1\par\smallskip}
+\tcbset{
+  exercisebox/.style={enhanced,breakable,arc=0pt,outer arc=0pt,
+    boxsep=0pt,left=10pt,right=10pt,top=10pt,bottom=10pt,
+    before skip=10pt,after skip=6pt,
+    coltitle=navy,fonttitle=\bfseries,toptitle=6pt,bottomtitle=6pt,
+    titlerule=0.4pt}
+}
+\newtcolorbox{problem}[1]{exercisebox,
+  colback=white,colframe=blue,colbacktitle=pale,
+  boxrule=0.55pt,leftrule=2pt,
+  title={题目\quad #1}}
+\newtcolorbox{solution}{exercisebox,
+  colback=palepink!15!white,colframe=pink,colbacktitle=palepink,
+  boxrule=0.45pt,leftrule=2pt,
+  title={解答}}
+\newtcolorbox{analysis}{exercisebox,
+  colback=pale!30!white,colframe=blue,colbacktitle=pale,
+  boxrule=0.4pt,leftrule=2pt,
+  title={分析}}
+\newcommand{\sect}[1]{\section*{\textcolor{navy}{习题 #1}}}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries\color{navy}常微分方程（第三版）第一章习题解答\par}
+  \vspace{0.35em}
+  {\color{pink}初等积分法 · 习题 1.1--1.10\par}
+\end{center}
+\begin{center}
+  \small\color{gray}本答案使用 AI 工具制作，请读者确认正确性后再使用。除非题目另有说明，本稿接受隐式解。
+\end{center}
+\sect{1.1}
+\begin{problem}{1.1-1}
+指出下列微分方程的阶数：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle \frac{\dd y}{\dd x}=y^2+x^3$；
+    \item $\displaystyle \frac{\dd^2y}{\dd x^2}=x+\frac{\dd^3}{\dd x^3}\arcsin x$；
+    \item $\displaystyle y^3\frac{\dd^2y}{\dd x^2}+1=0$；
+    \item $\displaystyle \left(\frac{\dd x}{\dd y}\right)^2=4$；
+    \item $\displaystyle \frac{\dd^4y}{\dd x^4}-2\frac{\dd^3y}{\dd x^3}+\frac{\dd^2y}{\dd x^2}=0$；
+    \item $\displaystyle \frac{\dd^2u}{\dd t^2}\frac{\dd u}{\dd t}+\left(\frac{\dd u}{\dd t}\right)^3+u^4=0$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+只看未知函数所出现的最高阶导数，依次得到
+\[
+\boxed{1,\ 2,\ 2,\ 1,\ 4,\ 2}.
+\]
+第 (2) 小题中 $\frac{\dd^3}{\dd x^3}\arcsin x$ 是已知函数的导数，并不提高关于未知函数 $y$ 的阶数；第 (4) 小题把 $x$ 看成 $y$ 的函数。
+\end{solution}
+
+\begin{problem}{1.1-2}
+验证给出的函数是否为相应微分方程的解：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle 5\frac{\dd y}{\dd x}=3x^2+5x,\qquad y=\frac{x^3}{5}+\frac{x^2}{2}+C$；
+    \item $\displaystyle \frac{\dd y}{\dd x}=p(x)y,\quad p(x)\text{ 连续},\qquad y=Ce^{\int p(x)\dd x}$；
+    \item $\displaystyle (x+y)\dd x+x\dd y=0,\qquad y=\frac{C^2-x^2}{2x}$；
+    \item $\displaystyle y''=x^2+y^2,\qquad y=\frac1x$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item $y=\frac{x^3}{5}+\frac{x^2}{2}+C$ 时，$5y'=3x^2+5x$，故是解。
+\item $y=C\e^{\int p(x)\dd x}$ 时，$y'=p(x)y$，故是解。
+\item $y=\frac{C^2-x^2}{2x}=\frac{C^2}{2x}-\frac{x}{2}$，从而
+\[
+x+y+xy'=x+\frac{C^2}{2x}-\frac{x}{2}+x\left(-\frac{C^2}{2x^2}-\frac12\right)=0,
+\]
+故是 $(x+y)\dd x+x\dd y=0$ 的解。
+\item $y=1/x$ 给出 $y''=2/x^3$，而 $x^2+y^2=x^2+1/x^2$，二者不恒等，故不是解。
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.1-3}
+建立具有下列性质的平面曲线所满足的微分方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item 曲线上任一点的切线介于两坐标轴之间的部分都等于定长；
+    \item 曲线上任一点的切线与两坐标轴所围成三角形的面积为定值。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+设曲线上一点为 $(x,y)$，该点切线斜率为 $y'$。切线在两坐标轴上的截距为
+\[
+a=x-\frac{y}{y'},\qquad b=y-xy'.
+\]
+若截距间线段长度为定值 $l$，则
+\[
+\boxed{\left(x-\frac{y}{y'}\right)^2+(y-xy')^2=l^2}.
+\]
+若切线与两坐标轴围成的三角形面积为定值 $A$，则（按无向面积）
+\[
+\boxed{\left|\left(x-\frac{y}{y'}\right)(y-xy')\right|=2A}.
+\]
+这里先在 $y'\ne0$ 且切线与两轴均有有限交点的弧段上列式；特殊切线须直接回到几何条件判断。
+\end{solution}
+
+\begin{problem}{1.1-4}
+求下列曲线族所满足的微分方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle (x-C_1)^2+(y-C_2)^2=C_3^2$；
+    \item $\displaystyle y=C_1e^x+C_2xe^x$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 对 $(x-C_1)^2+(y-C_2)^2=C_3^2$ 连续求导并消去三个参数。第一次求导得
+\[
+(x-C_1)+(y-C_2)y'=0,
+\]
+再求导两次：
+\[
+1+y'^2+(y-C_2)y''=0,
+\qquad 3y'y''+(y-C_2)y'''=0.
+\]
+将前一式乘以 $y'''$、后一式乘以 $y''$ 后相减，便消去 $C_2$，得到
+\[
+\boxed{(1+y'^2)y'''-3y'(y'')^2=0}.
+\]
+\item 写成 $y=\e^x(C_1+C_2x)$，直接求导有
+\[
+y'=\e^x(C_1+C_2x+C_2),\qquad
+y''=\e^x(C_1+C_2x+2C_2).
+\]
+将三个式子相减，消去 $C_1,C_2$，得到
+\[
+\boxed{y''-2y'+y=0}.
+\]
+\end{enumerate}
+\end{solution}
+
+
+\sect{1.2}
+\begin{problem}{1.2-1}
+求下列变量可分离方程的通解：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle y\dd y=x\dd x$；
+    \item $\displaystyle \frac{\dd y}{\dd x}=y\ln y$；
+    \item $\displaystyle \frac{\dd y}{\dd x}=e^{x-y}$；
+    \item $\displaystyle \tan y\dd x-\cot x\dd y=0$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item $y\dd y=x\dd x$，故
+\[
+\boxed{y^2-x^2=C}.
+\]
+\item 在 $y>0$ 上，$\frac{\dd y}{y\ln y}=\dd x$，故
+\[
+\int\frac{\dd y}{y\ln y}=\ln|\ln y|=x+C_1.
+\]
+指数化后 $\ln y=C\e^x$，于是
+\[
+\boxed{y=\exp(C\e^x)}.
+\]
+其中 $C=0$ 给出常值解 $y=1$。
+\item $\e^y\dd y=\e^x\dd x$，故
+\[
+\boxed{\e^y-\e^x=C}.
+\]
+\item 化为 $\cot y\dd y=\tan x\dd x$，故
+\[
+\ln|\sin y|=-\ln|\cos x|+C_1.
+\]
+合并对数后得到
+\[
+\boxed{\sin y\cos x=C}.
+\]
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.2-2}
+求下列方程满足给定初值条件的解：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle \frac{\dd y}{\dd x}=y(y-1),\quad y(0)=1$；
+    \item $\displaystyle (x^2-1)y'+2xy^2=0,\quad y(0)=1$；
+    \item $\displaystyle y'=3\sqrt[3]{y^2},\quad y(2)=0$；
+    \item $\displaystyle (y^2+xy^2)\dd x-(x^2+yx^2)\dd y=0,\quad y(1)=-1$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item $y'=y(y-1),\ y(0)=1$ 的解为平衡解
+\[
+\boxed{y\equiv1}.
+\]
+\item 分离变量后
+\[
+\frac{\dd y}{y^2}=-\frac{2x}{x^2-1}\dd x,
+\]
+积分得 $-1/y=-\ln|x^2-1|+C$，由 $y(0)=1$ 得 $C=-1$，因此
+\[
+\boxed{y=\frac{1}{1+\ln|x^2-1|}},
+\]
+含初值点的最大解区间为
+$-\sqrt{1-\e^{-1}}<x<\sqrt{1-\e^{-1}}$。
+\item 方程 $y'=3\sqrt[3]{y^2}$ 的初值解并不唯一。直接代回可验两个解为
+\[
+\boxed{y\equiv0},\qquad \boxed{y=(x-2)^3}.
+\]
+更一般地，任取 $\alpha\le2\le\beta$，可将 $(x-\alpha)^3$、$0$、$(x-\beta)^3$ 分别在 $x\le\alpha$、$\alpha\le x\le\beta$、$x\ge\beta$ 上拼接。连接处函数值和一阶导数均为零，所以仍是解。
+\item 在 $xy\ne0$ 的弧段上，方程可化为
+\[
+\left(\frac1{x^2}+\frac1x\right)\dd x
+=\left(\frac1{y^2}+\frac1y\right)\dd y.
+\]
+积分并代入 $(1,-1)$ 得隐式解
+\[
+\boxed{\ln|x|-\frac1x-\ln|y|+\frac1y=-2}.
+\]
+\note{题目允许隐式曲线。原方程在 $(1,-1)$ 处的 $\dd y$ 系数为零而 $\dd x$ 系数不为零，故积分曲线在该点有竖直切线，不能在该点写成可微的 $y(x)$。}
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.2-3}
+利用变量替换法把下列方程化为变量可分离方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle \frac{\dd y}{\dd x}=f(ax+by+c)$；
+    \item $\displaystyle \frac{\dd y}{\dd x}=\frac1{x^2}f(xy)$；
+    \item $\displaystyle \frac{\dd y}{\dd x}=x f\!\left(\frac{y}{x^2}\right)$；
+    \item $\displaystyle f(xy)y+g(xy)xy'=0,\quad f(u)\ne g(u),\quad f(u),g(u)\text{ 连续}$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 令 $u=ax+by+c$，则
+\[
+\boxed{u'=a+bf(u)}.
+\]
+在右端不为零的区间上分离为 $\dd u/[a+bf(u)]=\dd x$；使 $a+bf(u)=0$ 的常值 $u$ 也须检查。
+\item 令 $u=xy$，则
+\[
+\boxed{u'=\frac{u+f(u)}{x}},\qquad \frac{\dd u}{u+f(u)}=\frac{\dd x}{x}.
+\]
+\item 令 $u=y/x^2$，则
+\[
+\boxed{x u'=f(u)-2u},\qquad \frac{\dd u}{f(u)-2u}=\frac{\dd x}{x}.
+\]
+\item 对 $f(xy)y+g(xy)xy'=0$ 令 $u=xy$，得
+\[
+g(u)u'+\frac{u\,[f(u)-g(u)]}{x}=0,
+\]
+即
+\[
+\boxed{\frac{g(u)}{u[g(u)-f(u)]}\dd u=\frac{\dd x}{x}}.
+\]
+此处 $x\ne0$ 且 $u\ne0$；$u\equiv0$ 对应 $y\equiv0$，应直接代回原方程保留。
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.2-4}
+解方程
+  \[
+    x\sqrt{1-y^2}\dd x+y\sqrt{1-x^2}\dd y=0.
+  \]
+\end{problem}
+
+\begin{solution}
+除以 $\sqrt{1-x^2}\sqrt{1-y^2}$ 后积分：
+\[
+\frac{x\dd x}{\sqrt{1-x^2}}+\frac{y\dd y}{\sqrt{1-y^2}}=0,
+\]
+故
+\[
+\boxed{\sqrt{1-x^2}+\sqrt{1-y^2}=C}.
+\]
+分离时除过 $\sqrt{1-y^2}$。在 $|x|<1$ 上还应补回常值解 $\boxed{y\equiv1}$ 与 $\boxed{y\equiv-1}$。
+\end{solution}
+
+\begin{problem}{1.2-5}
+求一曲线，使其上每一点的切线斜率为该点横坐标的 2 倍，且通过点 $P(3,4)$。
+\end{problem}
+
+\begin{solution}
+$y'=2x$，所以 $y=x^2+C$；代入 $(3,4)$，得
+\[
+\boxed{y=x^2-5}.
+\]
+\end{solution}
+
+\begin{problem}{1.2-6}
+求一曲线，使其具有如下性质：曲线上各点处的切线与切点到原点的向径及 $x$ 轴可围成一个等腰三角形（以 $x$ 轴为底），且通过点 $(1,2)$。
+\end{problem}
+
+\begin{solution}
+切线与 $x$ 轴交于 $A(x-y/y',0)$。三角形 $OAP$ 以 $OA$ 为底，故 $OP=AP$，从而
+\[
+x^2+y^2=y^2+\frac{y^2}{y'^2}.
+\]
+非退化情形给出 $y'=-y/x$。由 $(1,2)$ 得
+\[
+\boxed{y=\frac2x}.
+\]
+另一符号 $y'=y/x$ 使切线通过原点，三角形退化，应舍去。
+\end{solution}
+
+\begin{problem}{1.2-7}
+某种细菌按“增长速率与当时数量成正比”的规律繁殖：
+  \begin{enumerate}[label=(\arabic*)]
+    \item 若 $4\,\mathrm{h}$ 后数量变为初始数量的 $2$ 倍，问 $12\,\mathrm{h}$ 后为初始数量的多少倍；
+    \item 若 $t=3\,\mathrm{h}$ 时有 $10^4$ 个，$t=5\,\mathrm{h}$ 时有 $4\times10^4$ 个，求初始数量。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+设数量为 $N(t)$，则 $N'=kN$，$N=N_0\e^{kt}$。
+\begin{enumerate}[label=(\arabic*)]
+\item $\e^{4k}=2$，故 $N(12)=N_0\e^{12k}=\boxed{8N_0}$。
+\item $N(5)/N(3)=4$ 给出 $k=\ln2$，所以
+\[
+\boxed{N(0)=10^4\e^{-3\ln2}=1250}.
+\]
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.2-8}
+解下列方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle \frac{\dd y}{\dd x}=(x+y)^2+3$；
+    \item $\displaystyle \frac{\dd y}{\dd x}=1-\tan(x-y)$；
+    \item $\displaystyle \frac{\dd y}{\dd x}=\frac{y(2+x^2y^2)}{x(1-x^2y^2)}$；
+    \item $\displaystyle \frac{\dd y}{\dd x}=\frac{y}{x(\ln x+\ln y)^2}-\frac{y}{x}$；
+    \item $\displaystyle \frac{\dd y}{\dd x}=\frac{xy^2+y}{x^2y-x}$；
+    \item $\displaystyle \frac{\dd y}{\dd x}=\frac{2xy^3}{1-x^2y^2}$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 右端只通过 $x+y$ 出现，令 $u=x+y$。由于 $u'=1+y'$，有
+\[
+u'=1+(x+y)^2+3=u^2+4.
+\]
+于是 $\frac12\arctan(u/2)=x+C_1$，故
+\[
+\boxed{x+y=2\tan(2x+C)}.
+\]
+\item 令 $u=x-y$，则
+\[
+u'=1-y'=1-[1-\tan(x-y)]=\tan u.
+\]
+所以 $\cot u\dd u=\dd x$，积分得
+\[
+\boxed{\sin(x-y)=C\e^x}.
+\]
+\item 方程中反复出现 $x^2y^2$，令 $u=xy$。利用 $u'=y+xy'$，得到
+\[
+u'=\frac ux+\frac{u(2+u^2)}{x(1-u^2)}
+=\frac{3u}{x(1-u^2)}.
+\]
+对 $u\ne0$，
+\[
+\left(\frac1u-u\right)\dd u=3\frac{\dd x}{x}.
+\]
+积分并代回 $u=xy$，故
+\[
+\boxed{\ln\left|\frac{y}{x^2}\right|-\frac{x^2y^2}{2}=C},
+\]
+并补上解 $y\equiv0$。
+\item 令 $u=\ln x+\ln y=\ln(xy)$。由于 $u'=1/x+y'/y$，原方程恰使
+\[
+u'=\frac1{x u^2}.
+\]
+于是 $u^2\dd u=\dd x/x$，故
+\[
+\boxed{[\ln(xy)]^3=3\ln|x|+C}.
+\]
+这里原式要求 $x>0,\ y>0$，且 $\ln(xy)\ne0$。
+\item 令 $u=xy$，则
+\[
+u'=y+xy'=\frac ux+\frac{u(u+1)}{x(u-1)}
+=\frac{2u^2}{x(u-1)}.
+\]
+所以 $(1/u-1/u^2)\dd u=2\dd x/x$，积分得
+\[
+\boxed{\ln\left|\frac yx\right|+\frac1{xy}=C},
+\]
+并补上 $y\equiv0$。
+\item 仍令 $u=xy$，则
+\[
+u'=\frac ux+\frac{2u^3}{x(1-u^2)}
+=\frac{u(1+u^2)}{x(1-u^2)}.
+\]
+分离变量：
+\[
+\left(\frac1u-\frac{2u}{1+u^2}\right)\dd u=\frac{\dd x}{x}.
+\]
+积分、指数化并吸收符号到常数中，得到
+\[
+\boxed{\frac{y}{1+x^2y^2}=C}.
+\]
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.2-9}
+考虑
+  \[
+    \frac{\dd y}{\dd x}=\frac{M(x)}{N(y)},
+  \]
+  其中 $M,N$ 为实值连续函数，$M(x)$ 以 $1$ 为周期且 $N(y)\ne0$。证明：若
+  \[
+    \int_0^1M(x)\dd x\ne0,
+  \]
+  则该方程不存在非常数的 $1$-周期解。
+\end{problem}
+
+\begin{solution}
+取 $\Phi'(y)=N(y)$。沿任一解有
+\[
+\frac{\dd}{\dd x}\Phi(y(x))=N(y)y'=M(x).
+\]
+若 $y$ 是 1 周期的，则对任意 $x$，
+\[
+0=\Phi(y(x+1))-\Phi(y(x))=\int_x^{x+1}M(s)\dd s=\int_0^1M(s)\dd s,
+\]
+这与题设非零矛盾。因此不存在非常数的 1 周期解。
+\end{solution}
+
+
+\sect{1.3}
+\begin{problem}{1.3-1}
+解下列方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle (x+2y)\dd x-x\dd y=0$；
+    \item $\displaystyle (y^2-2xy)\dd x+x^2\dd y=0$；
+    \item $\displaystyle (x^2+y^2)\frac{\dd y}{\dd x}=2xy$；
+    \item $\displaystyle xy'-y=x\tan\frac{y}{x}$；
+    \item $\displaystyle xy'-y=(x+y)\ln\frac{x+y}{x}$；
+    \item $\displaystyle xy'=\sqrt{x^2-y^2}+y$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 令 $u=y/x$，则 $y'=u+xu'$。原式成为 $u+xu'=1+2u$，即
+$x\,\dd u/\dd x=1+u$。积分得 $1+u=Cx$，所以
+\[
+\boxed{y=Cx^2-x}.
+\]
+\item 令 $u=y/x$，原方程化为 $y'=2u-u^2$。又 $y'=u+xu'$，所以
+\[
+xu'=u(1-u).
+\]
+当 $u\ne0,1$ 时，
+\[
+\frac{\dd u}{u(1-u)}=\frac{\dd x}{x},
+\qquad
+\ln\left|\frac{u}{1-u}\right|=\ln|x|+C_1.
+\]
+从而
+\[
+\boxed{\frac{y}{x-y}=Cx},
+\]
+其中 $u=0$ 已由 $C=0$ 包含；除法时丢失的 $u=1$ 给出直线解 $\boxed{y=x}$。
+\item 令 $u=y/x$，有 $xu'=u(1-u^2)/(1+u^2)$。在 $u\ne0,\pm1$ 时分离变量：
+\[
+\frac{1+u^2}{u(1-u^2)}\dd u=\frac{\dd x}{x},
+\qquad
+\ln\left|\frac{u}{1-u^2}\right|=\ln|x|+C_1.
+\]
+代回 $u=y/x$，故
+\[
+\boxed{\frac{y}{x^2-y^2}=C},
+\]
+并补上 $\boxed{y=\pm x}$。
+\item 令 $u=y/x$，则 $xu'=\tan u$；把 $\cot u\,\dd u=\dd x/x$ 积分，得到
+\[
+\boxed{\sin\frac yx=Cx}.
+\]
+\item 令 $u=y/x$，则 $xu'=(1+u)\ln(1+u)$。题式要求 $1+u>0$；再令
+$v=\ln(1+u)$，便有 $xv'=v$。积分得 $v=Cx$，故
+\[
+\boxed{y=x\bigl(\e^{Cx}-1\bigr)}.
+\]
+\item 令 $u=y/x$。在固定符号的区间上 $\sqrt{x^2-y^2}=|x|\sqrt{1-u^2}$，方程给出
+\[
+xu'=\operatorname{sgn}(x)\sqrt{1-u^2}.
+\]
+当 $|u|<1$ 时积分得 $\arcsin u=\operatorname{sgn}(x)\ln|x|+C$，故
+\[
+\boxed{y=x\sin\!\bigl(\operatorname{sgn}(x)\ln|x|+C\bigr)},
+\]
+式子只在满足 $|y|<|x|$ 且导数符号与原式相符的弧段上使用；另补边界直线解 $\boxed{y=\pm x}$。
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.3-2}
+解下列方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle (2x-4y+6)\dd x+(x+y-3)\dd y=0$；
+    \item $\displaystyle (2x+y+1)\dd x-(4x+2y-3)\dd y=0$；
+    \item $\displaystyle (x+4y)y'=2x+3y+5$；
+    \item $\displaystyle y'=2\left(\frac{y-2}{x+y-1}\right)^2$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+本题每小题的平移点都来自“令两个一次式同时为零”。例如第 (1) 题解
+\[
+2x-4y+6=0,\qquad x+y-3=0
+\]
+得交点 $(1,2)$，因此取 $\xi=x-1,\eta=y-2$，常数项随即消失。
+\begin{enumerate}[label=(\arabic*)]
+\item 令 $\xi=x-1,\eta=y-2$，再令 $u=\eta/\xi$，得
+\[
+\xi u'=-\frac{(u-1)(u-2)}{1+u},
+\qquad
+-2\ln|u-1|+3\ln|u-2|=-\ln|\xi|+C_1.
+\]
+整理后得
+\[
+\boxed{(\eta-\xi)^2=C(\eta-2\xi)^3},
+\]
+即
+\[
+\boxed{(y-x-1)^2=C(y-2x)^3},
+\]
+并补上 $\eta=2\xi$，即 $\boxed{y-2=2(x-1)}$。
+\item 令 $u=2x+y$，则
+\[
+u'=\frac{5(u-1)}{2u-3}.
+\]
+当 $u\ne1$ 时，$(2u-3)/(u-1)=2-1/(u-1)$；分离并积分得
+\[
+\boxed{2(2x+y)-\ln|2x+y-1|=5x+C},
+\]
+并补上直线 $\boxed{2x+y=1}$。
+\item 令 $\xi=x+4,\eta=y-1$，则
+\[
+\frac{\dd\eta}{\dd\xi}=\frac{2\xi+3\eta}{\xi+4\eta}.
+\]
+再令 $u=\eta/\xi$，得到
+\[
+\xi u'=-\frac{2(2u+1)(u-1)}{1+4u}.
+\]
+分离并积分可化为
+\[
+\boxed{(2\eta+\xi)(\eta-\xi)^5=C},
+\]
+即
+\[
+\boxed{(x+2y+2)(y-x-5)^5=C}.
+\]
+\item 令 $\xi=x+1,\eta=y-2$，则
+\[
+\eta'=2\frac{\eta^2}{(\xi+\eta)^2}.
+\]
+再令 $u=\eta/\xi$，有
+$\xi u'=-u(1+u^2)/(1+u)^2$；积分
+$(1+u)^2\dd u/[u(1+u^2)]=-\dd\xi/\xi$，得到
+\[
+\boxed{\ln|\eta|+2\arctan\frac{\eta}{\xi}=C},
+\]
+并补上 $\boxed{y=2}$。
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.3-3}
+解方程
+  \[
+    (2x^2+3y^2-7)x\dd x-(3x^2+2y^2-8)y\dd y=0.
+  \]
+\end{problem}
+
+\begin{solution}
+令 $u=x^2,v=y^2$，再平移 $\xi=u-2,\eta=v-1$。化为
+\[
+\frac{\dd\eta}{\dd\xi}=\frac{2\xi+3\eta}{3\xi+2\eta}.
+\]
+令 $q=\eta/\xi$，则
+\[
+\xi q'=\frac{2(1-q^2)}{3+2q},\qquad
+\frac{3+2q}{1-q^2}\dd q=2\frac{\dd\xi}{\xi}.
+\]
+把左端拆成 $\frac{5/2}{1-q}+\frac{1/2}{1+q}$ 后积分，得到
+\[
+\boxed{\xi+\eta=C(\xi-\eta)^5},
+\]
+即
+\[
+\boxed{x^2+y^2-3=C(x^2-y^2-1)^5},
+\]
+另有直线因子对应的解 $\boxed{y^2=x^2-1}$。
+\end{solution}
+
+\begin{problem}{1.3-4}
+一条船从河岸点 $A$ 驶向对岸码头 $O$。设河宽 $OA=a$，水速为 $w$，船相对水的速度为 $v$，且船头始终指向 $O$。求航行轨迹，并证明船能到达 $O$ 的充要条件为 $v>w$。
+\end{problem}
+
+\begin{solution}
+以对岸码头 $O$ 为原点，$y$ 轴横跨河面，出发点 $A=(0,a)$，水流沿 $x$ 正向，流速 $w$，船相对水速 $v$。船头始终指向 $O$，故
+\[
+\dot x=w-\frac{vx}{\sqrt{x^2+y^2}},\qquad
+\dot y=-\frac{vy}{\sqrt{x^2+y^2}}.
+\]
+令 $z=x/y$，由上式求得
+\[
+\frac{\dd z}{\dd y}=-\frac{w}{v}\frac{\sqrt{1+z^2}}{y}.
+\]
+从 $z(a)=0$ 积分，得
+\[
+\ln\!\bigl(z+\sqrt{1+z^2}\bigr)=\frac wv\ln\frac ay.
+\]
+因此航线为
+\[
+\boxed{x=\frac y2\left[\left(\frac ay\right)^{w/v}-\left(\frac ya\right)^{w/v}\right]}.
+\]
+当 $y\to0^+$ 时，$x\to0$ 当且仅当 $1-w/v>0$。并且航行所需时间满足
+\[
+\dd t=-\frac{\sqrt{x^2+y^2}}{vy}\dd y
+=-\frac1{2v}\left[\left(\frac ay\right)^{w/v}
++\left(\frac ya\right)^{w/v}\right]\dd y .
+\]
+上述积分在 $y=0$ 附近有限也恰好要求 $w/v<1$。因此到达 $O$ 的充要条件为
+\[
+\boxed{v>w}.
+\]
+\end{solution}
+
+
+\sect{1.4}
+\begin{problem}{1.4-1}
+解下列方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle \frac{\dd y}{\dd x}+2xy=4x$；
+    \item $\displaystyle y'-\frac{1}{x-2}y=2(x-2)^2$；
+    \item $\displaystyle \frac{\dd\varphi}{\dd\theta}+3\varphi=2$；
+    \item $\displaystyle \frac{\dd i}{\dd t}-6i=10\sin 2t$；
+    \item $\displaystyle xy'-2y=2x^4$；
+    \item $\displaystyle x(y'-y)=e^x$；
+    \item $\displaystyle y'+y\tan x=\sec x$；
+    \item $\displaystyle xy'+(x+1)y=3x^2e^{-x}$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+下面把每题最关键的“乘完积分因子后的全导数”列出，便于检查：
+\[
+\begin{array}{c|c|c}
+\text{小题}&\mu&\text{全导数形式}\\ \hline
+(1)&\e^{x^2}&(y\e^{x^2})'=4x\e^{x^2}\\
+(2)&(x-2)^{-1}&\left(\dfrac{y}{x-2}\right)'=2(x-2)\\
+(5)&x^{-2}&\left(\dfrac{y}{x^2}\right)'=2x\\
+(6)&\e^{-x}&(y\e^{-x})'=1/x\\
+(7)&\sec x&(y\sec x)'=\sec^2x\\
+(8)&x\e^x&(x\e^xy)'=3x^2
+\end{array}
+\]
+\begin{enumerate}[label=(\arabic*)]
+\item 乘积分因子 $\e^{x^2}$：
+\[
+\boxed{y=2+C\e^{-x^2}}.
+\]
+\item 乘积分因子 $(x-2)^{-1}$：
+\[
+\boxed{y=(x-2)^3+C(x-2)}.
+\]
+\item 对 $\varphi'+3\varphi=2$，乘以 $\e^{3\theta}$ 后有
+$(\e^{3\theta}\varphi)'=2\e^{3\theta}$，积分得
+\[
+\boxed{\varphi=\frac23+C\e^{-3\theta}}.
+\]
+\item 对 $i'-6i=10\sin2t$，取积分因子 $\e^{-6t}$，
+有 $(i\e^{-6t})'=10\e^{-6t}\sin2t$。两次分部积分（或将结果求导核对）得到
+\[
+\int 10\e^{-6t}\sin2t\,\dd t
+=\e^{-6t}\left(-\frac32\sin2t-\frac12\cos2t\right)+C.
+\]
+因此
+\[
+\boxed{i=C\e^{6t}-\frac32\sin2t-\frac12\cos2t}.
+\]
+\item
+\[
+\boxed{y=x^4+Cx^2}.
+\]
+\item 乘积分因子 $\e^{-x}$：
+\[
+\boxed{y=\e^x(C+\ln|x|)}.
+\]
+\item 乘积分因子 $\sec x$：
+\[
+\boxed{y=\sin x+C\cos x}.
+\]
+\item 乘积分因子 $x\e^x$：
+\[
+\boxed{y=\e^{-x}\left(x^2+\frac Cx\right)}.
+\]
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.4-2}
+求一条曲线，使其任一点处的切线在纵轴上的截距等于该点的横坐标。
+\end{problem}
+
+\begin{solution}
+切线纵截距为 $y-xy'$，故 $y-xy'=x$。解线性方程得
+\[
+\boxed{y=x(C-\ln|x|)}.
+\]
+\end{solution}
+
+\begin{problem}{1.4-3}
+解下列伯努利方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle \frac{\dd y}{\dd x}-y=xy^5$；
+    \item $\displaystyle y'+2xy+xy^4=0$；
+    \item $\displaystyle y'+\frac y3=\frac13(1-2x)y^4$；
+    \item $\displaystyle \frac{\dd y}{\dd x}+y=y^2(\cos x-\sin x)$；
+    \item $\displaystyle x\dd y-[y+xy^3(1+\ln|x|)]\dd x=0$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+对 $y'+p(x)y=q(x)y^n$，在 $y\ne0$ 的区间令
+$z=y^{1-n}$，因为 $z'=(1-n)y^{-n}y'$，原式成为
+$z'+(1-n)pz=(1-n)q$。先以第 (1) 题说明：令 $z=y^{-4}$，得到
+\[
+z'+4z=-4x.
+\]
+乘以 $\e^{4x}$ 积分得 $z=C\e^{-4x}-x+1/4$，最后恢复 $y=z^{-1/4}$。
+\begin{enumerate}[label=(\arabic*)]
+\item 令 $z=y^{-4}$：
+\[
+\boxed{y=\left(C\e^{-4x}-x+\frac14\right)^{-1/4}},
+\]
+并补上 $y\equiv0$。
+\item 令 $z=y^{-3}$，则 $z'-6xz=3x$。乘以 $\e^{-3x^2}$，
+有 $(z\e^{-3x^2})'=3x\e^{-3x^2}$，积分得
+\[
+\boxed{y=\left(C\e^{3x^2}-\frac12\right)^{-1/3}},
+\]
+并补上 $y\equiv0$。
+\item 令 $z=y^{-3}$，则 $z'-z=2x-1$。乘以 $\e^{-x}$ 积分，得
+\[
+\boxed{y=(C\e^x-2x-1)^{-1/3}},
+\]
+并补上 $y\equiv0$。
+\item 令 $z=y^{-1}$，则 $z'-z=\sin x-\cos x$；由于
+$(z\e^{-x})'=\e^{-x}(\sin x-\cos x)$，积分得
+\[
+\boxed{y=\frac1{C\e^x-\sin x}},
+\]
+并补上 $y\equiv0$。
+\item 令 $z=y^{-2}$，则
+$z'+2z/x=-2(1+\ln|x|)$。乘以积分因子 $x^2$ 后，
+$(x^2z)'=-2x^2(1+\ln|x|)$；分部积分得
+\[
+\boxed{y^{-2}=\frac C{x^2}-\frac23x\ln|x|-\frac49x},
+\]
+并补上 $y\equiv0$。
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.4-4}
+设 $p(x),f(x)$ 在 $[0,+\infty)$ 连续，且
+  \[
+    \lim_{x\to+\infty}p(x)=a>0,\qquad |f(x)|\le b.
+  \]
+  证明方程
+  \[
+    \frac{\dd y}{\dd x}+p(x)y=f(x)
+  \]
+  的每个解在 $[0,+\infty)$ 上都有界。
+\end{problem}
+
+\begin{solution}
+由 $p(x)\to a>0$，存在 $X$ 使 $p(x)\ge a/2$（$x\ge X$）。从 $X$ 出发的常数变易公式给出
+\[
+|y(x)|\le |y(X)|\e^{-\frac a2(x-X)}+
+\int_X^x \e^{-\frac a2(x-s)}|f(s)|\dd s
+\le |y(X)|+\frac{2b}{a}.
+\]
+而 $[0,X]$ 上连续函数 $y$ 有界，故一切解在 $[0,+\infty)$ 上有界。
+\end{solution}
+
+\begin{problem}{1.4-5}
+设 $f$ 在 $[0,+\infty)$ 连续，$\lim_{x\to+\infty}f(x)=b$，且 $a>0$。证明
+  \[
+    \frac{\dd y}{\dd x}+ay=f(x)
+  \]
+  的每个解均满足
+  \[
+    \lim_{x\to+\infty}y(x)=\frac ba.
+  \]
+\end{problem}
+
+\begin{solution}
+令 $z=y-b/a$，则
+\[
+z'+az=f(x)-b\longrightarrow0.
+\]
+任给 $\varepsilon>0$，取 $X$ 使 $|f(s)-b|<\varepsilon$（$s\ge X$）。
+在 $x\ge X$ 上直接解线性方程：
+\[
+|z(x)|\le |z(X)|\e^{-a(x-X)}
++\varepsilon\int_X^x\e^{-a(x-s)}\dd s
+\le |z(X)|\e^{-a(x-X)}+\frac{\varepsilon}{a}.
+\]
+先令 $x\to\infty$，再令 $\varepsilon\to0$，便得 $z(x)\to0$。所以
+\[
+\boxed{\lim_{x\to\infty}y(x)=\frac ba}.
+\]
+\end{solution}
+
+\begin{problem}{1.4-6}
+设 $y$ 在 $[0,+\infty)$ 连续可微，并满足
+  \[
+    \lim_{x\to+\infty}[y'(x)+y(x)]=0.
+  \]
+  证明 $\lim_{x\to+\infty}y(x)=0$。
+\end{problem}
+
+\begin{solution}
+把 $r(x)=y'(x)+y(x)$ 看成上一题中的 $f(x)$。
+此时方程是 $y'+1\cdot y=r(x)$，且 $r(x)\to0$；
+把上一题的结论取 $a=1,b=0$，得到
+\[
+\boxed{\lim_{x\to\infty}y(x)=0}.
+\]
+\end{solution}
+
+\begin{problem}{1.4-7}
+若 $y_1,y_2$ 是一阶线性非齐次方程 (1.34) 的两个不同解，证明任意解 $y$ 满足
+  \[
+    \frac{y(x)-y_1(x)}{y_2(x)-y_1(x)}=C,
+  \]
+  其中 $C$ 为常数。
+\end{problem}
+
+\begin{solution}
+$y-y_1$ 与 $y_2-y_1$ 都满足齐次方程 $z'+p(x)z=0$，
+乘积分因子 $\e^{\int p}$ 后，各自成为常数。由于 $y_2-y_1$ 不恒为零，
+它在所论区间内处处不为零，故两者之比为常数：
+\[
+\boxed{\frac{y-y_1}{y_2-y_1}=C}.
+\]
+\end{solution}
+
+\begin{problem}{1.4-8}
+对一阶线性非齐次方程 (1.34)，设 $p(x),f(x)$ 都是周期 $\omega>0$ 的连续函数。证明：
+  \begin{enumerate}[label=(\arabic*)]
+    \item 当 $f(x)=0$ 时，一个非零解为 $\omega$-周期解，当且仅当
+    \[
+      \bar p=\frac1\omega\int_0^\omega p(x)\dd x=0;
+    \]
+    \item 当 $f(x)\ne0$ 时，该方程存在唯一的 $\omega$-周期解，当且仅当 $\bar p\ne0$；并求出这个周期解。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+记
+\[
+P(x)=\int_0^x p(s)\dd s,\qquad \bar p=\frac1\omega\int_0^\omega p(s)\dd s.
+\]
+\begin{enumerate}[label=(\arabic*)]
+\item 齐次解满足 $y(x+\omega)=y(x)\e^{-\omega\bar p}$。非零解为 $\omega$ 周期解当且仅当
+\[
+\boxed{\bar p=0}.
+\]
+\item 积分因子公式给出
+\[
+y(x)=\e^{-P(x)}\left[y(0)+\int_0^x\e^{P(s)}f(s)\dd s\right].
+\]
+设 $I=\int_0^\omega\e^{P(s)}f(s)\dd s$。令 $y(\omega)=y(0)$，
+得到 $(\e^{P(\omega)}-1)y(0)=I$。当
+$\bar p\ne0$ 时，$\e^{P(\omega)}-1\ne0$，因此恰有一个初值
+$y(0)=I/(\e^{P(\omega)}-1)$，相应周期解为
+\[
+\boxed{
+y(x)=\e^{-P(x)}\left[
+\frac{\displaystyle\int_0^\omega \e^{P(s)}f(s)\dd s}{\e^{P(\omega)}-1}
++\int_0^x\e^{P(s)}f(s)\dd s
+\right]}.
+\]
+由于系数以 $\omega$ 为周期，$y(x+\omega)-y(x)$ 满足齐次方程且在
+$x=0$ 处为零，由齐次方程的积分因子公式知它恒为零。
+当 $\bar p=0$ 时，上述等式为 $0\cdot y(0)=I$：
+$I\ne0$ 时无周期解，$I=0$ 时每个初值都给出周期解，因而不可能恰有一个。
+\end{enumerate}
+\end{solution}
+
+
+\sect{1.5}
+\begin{problem}{1.5-1}
+解下列方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle 2xy\dd x+(x^2-y^2)\dd y=0$；
+    \item $\displaystyle e^{-y}\dd x-(2y+xe^{-y})\dd y=0$；
+    \item $\displaystyle 2x\bigl(1+\sqrt{x^2-y}\bigr)\dd x-\sqrt{x^2-y}\dd y=0$；
+    \item $\displaystyle \frac yx\dd x+(y^3+\ln x)\dd y=0$；
+    \item $\displaystyle \frac{3x^2+y^2}{y^2}\dd x-\frac{2x^3+5y}{y^3}\dd y=0$；
+    \item $\displaystyle (1+y^2\sin2x)\dd x-y\cos2x\dd y=0$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+逐题验证 $M_y=N_x$，再求势函数 $U$。例如第 (1) 题
+\[
+M=2xy,\quad N=x^2-y^2,\quad M_y=N_x=2x.
+\]
+对 $M$ 关于 $x$ 积分：$U=x^2y+h(y)$；再由
+\[
+U_y=x^2+h'(y)=x^2-y^2
+\]
+得 $h'(y)=-y^2$，即 $h=-y^3/3$。逐题的势函数计算如下：
+\begin{enumerate}[label=(\arabic*)]
+\item \(\boxed{x^2y-\dfrac{y^3}{3}=C}\).
+\item $M_y=-\e^{-y}=N_x$。对 $M=\e^{-y}$ 关于 $x$ 积分，
+取 $U=x\e^{-y}+h(y)$；由 $U_y=-x\e^{-y}+h'(y)=N$
+得 $h'=-2y$，故 \(\boxed{x\e^{-y}-y^2=C}\).
+\item 注意 $\dd(x^2-y)=2x\dd x-\dd y$：
+\[
+\boxed{x^2+\frac23(x^2-y)^{3/2}=C}.
+\]
+\item $M_y=1/x=N_x$。由 $U_x=y/x$ 得
+$U=y\ln x+h(y)$；再由 $U_y=\ln x+h'(y)=y^3+\ln x$
+得 $h=y^4/4$。因此 \(\boxed{y\ln x+\dfrac{y^4}{4}=C}\)，$x>0$。
+\item $M_y=-6x^2/y^3=N_x$。对
+$M=3x^2/y^2+1$ 关于 $x$ 积分，取
+$U=x^3/y^2+x+h(y)$；比较 $U_y=N$ 得
+$h'(y)=-5/y^2$，故 \(\boxed{\dfrac{x^3}{y^2}+x+\dfrac5y=C}\).
+\item $M_y=2y\sin2x=N_x$。由 $U_x=1+y^2\sin2x$
+取 $U=x-\tfrac12y^2\cos2x+h(y)$，再比较 $U_y=-y\cos2x$
+得 $h'=0$，故 \(\boxed{x-\dfrac12y^2\cos2x=C}\).
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.5-2}
+对下列方程，求积分因子并写出通积分：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle (x^2+y^2+x)\dd x+xy\dd y=0$；
+    \item $\displaystyle (2xy^4e^y+2xy^3+y)\dd x+(x^2y^4e^y-x^2y^2-3x)\dd y=0$；
+    \item $\displaystyle (x^4+y^4)\dd x-xy^3\dd y=0$；
+    \item $\displaystyle (2x^3y^2+4x^2y+2xy^2+xy^4+2y)\dd x+2(y^3+x^2y+x)\dd y=0$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+第 (1) 题说明只含 $x$ 的积分因子判别：
+\[
+\frac{M_y-N_x}{N}=\frac{2y-y}{xy}=\frac1x,
+\]
+故 $\mu(x)=\exp\int\frac1x\dd x=x$。乘回原方程后再按全微分方程求势函数。第 (2)、(4) 题分别使用同一判别式得到只含 $y$、只含 $x$ 的积分因子；第 (3) 题使用齐次微分式的公式 $\mu=1/(xM+yN)$。
+\begin{enumerate}[label=(\arabic*)]
+\item $(M_y-N_x)/N=1/x$，故 $\mu=x$。乘后
+$\mu M=x^3+xy^2+x^2,\ \mu N=x^2y$；
+对前者关于 $x$ 积分即得势函数
+\[
+\boxed{\frac{x^4}{4}+\frac{x^2y^2}{2}+\frac{x^3}{3}=C}.
+\]
+\item $(N_x-M_y)/M=-4/y$，故 $\mu=y^{-4}$。
+乘后 $\mu M=2x\e^y+2x/y+1/y^3$；
+对 $x$ 积分并比较 $\mu N$，得通积分
+\[
+\boxed{x^2\e^y+\frac{x^2}{y}+\frac{x}{y^3}=C}.
+\]
+\item 方程齐次，取
+\[
+\mu=\frac1{xM+yN}=\frac1{x^5}.
+\]
+此时 $\mu M=1/x+y^4/x^5$，
+对 $x$ 积分并比较 $\mu N=-y^3/x^4$，于是
+\[
+\boxed{\ln|x|-\frac{y^4}{4x^4}=C}.
+\]
+\item $(M_y-N_x)/N=2x$，故 $\mu=\e^{x^2}$。
+乘后对 $y$ 积分 $\mu N=2\e^{x^2}(y^3+x^2y+x)$，
+可取势函数
+\[
+\boxed{\e^{x^2}\left(\frac{y^4}{2}+x^2y^2+2xy\right)=C}.
+\]
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.5-3}
+分别求下列方程的积分因子：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle M(x)N(y)\dd x+P(x)Q(y)\dd y=0$；
+    \item $\displaystyle \dd y=[p(x)y+f(x)]\dd x$；
+    \item $\displaystyle \dd y=[p(x)y+q(x)y^n]\dd x,\quad n\ne0,1$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 对 $M(x)N(y)\dd x+P(x)Q(y)\dd y=0$，可取
+\[
+\boxed{\mu(x,y)=\frac1{P(x)N(y)}}.
+\]
+乘后微分式为
+$[M(x)/P(x)]\dd x+[Q(y)/N(y)]\dd y$，
+两项分别只含一个变量，故为全微分。积分因子在 $P(x)N(y)\ne0$ 的区域使用。
+\item 对 $\dd y=[p(x)y+f(x)]\dd x$，可取
+\[
+\boxed{\mu(x)=\e^{-\int p(x)\dd x}}.
+\]
+因为 $(\mu y)'=\mu f$，乘后的微分式就是
+$\dd(\mu y-\int\mu f\,\dd x)$。
+\item 对伯努利方程 $\dd y=[p(x)y+g(x)y^n]\dd x$，可取
+\[
+\boxed{\mu(x,y)=y^{-n}\e^{(n-1)\int p(x)\dd x}}.
+\]
+事实上令 $P(x)=\int p(x)\dd x$，乘后正是
+\[
+\dd\left(\frac{\e^{(n-1)P(x)}y^{1-n}}{1-n}
+ -\int \e^{(n-1)P(x)}g(x)\dd x\right)=0.
+\]
+这里先在 $y\ne0$ 的区域讨论；零解应直接代回原方程检查。
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.5-4}
+设 $f_1(z),f_2(z)$ 连续可微，且
+  \[
+    \varphi(x,y)=[f_1(xy)-f_2(xy)]xy\ne0.
+  \]
+  证明 $1/\varphi(x,y)$ 是
+  \[
+    f_1(xy)y\dd x+f_2(xy)x\dd y=0
+  \]
+  的积分因子。
+\end{problem}
+
+\begin{solution}
+令 $u=xy$。原微分式可写成
+\[
+f_1(u)y\dd x+f_2(u)x\dd y
+=f_2(u)\dd u+u[f_1(u)-f_2(u)]\dd\ln|x|.
+\]
+除以 $\varphi=u[f_1(u)-f_2(u)]$ 后得到
+\[
+\dd\ln|x|+\frac{f_2(u)}{u[f_1(u)-f_2(u)]}\dd u,
+\]
+它是
+\[
+\dd\left[\ln|x|+
+\int_{u_0}^{u}\frac{f_2(s)}{s[f_1(s)-f_2(s)]}\dd s\right].
+\]
+因此 $1/\varphi$ 是积分因子。
+\end{solution}
+
+\begin{problem}{1.5-5}
+设 $f(x,y)$ 与 $\partial f/\partial y$ 连续。证明
+  \[
+    \dd y-f(x,y)\dd x=0
+  \]
+  是线性方程，当且仅当它存在一个只依赖于 $x$ 的积分因子。
+\end{problem}
+
+\begin{solution}
+若仅依赖 $x$ 的 $\mu(x)$ 使 $\mu(\dd y-f\dd x)$ 为全微分，则
+\[
+-\mu f_y=\mu',\qquad f_y=-\frac{\mu'}\mu=p(x).
+\]
+故 $f(x,y)=p(x)y+q(x)$，原方程为线性方程。反之，对线性方程取 $\mu=\e^{-\int p(x)\dd x}$ 即可。因此条件充要。
+\end{solution}
+
+\begin{problem}{1.5-6}
+已知
+  \[
+    y^2\sin x\dd x+yf(x)\dd y=0
+  \]
+  是全微分方程。求 $f(x)$，并据此求该方程的解。
+\end{problem}
+
+\begin{solution}
+全微分条件为
+\[
+2y\sin x=yf'(x),
+\]
+所以
+\[
+\boxed{f(x)=A-2\cos x}.
+\]
+势函数可取 $U=y^2(A/2-\cos x)$，故
+\[
+\boxed{y^2\left(\frac A2-\cos x\right)=C}.
+\]
+\end{solution}
+
+\begin{problem}{1.5-7}
+已知
+  \[
+    (x^2+y)\dd x+f(x)\dd y=0
+  \]
+  有积分因子 $\mu(x,y)=x$，求 $f(x)$。
+\end{problem}
+
+\begin{solution}
+乘以 $x$ 后，全微分条件为
+\[
+x=(xf(x))'.
+\]
+于是
+\[
+\boxed{f(x)=\frac x2+\frac Cx}.
+\]
+积分因子 $x$ 要求在 $x\ne0$ 的区间上使用。
+\end{solution}
+
+
+\sect{1.6}
+\begin{problem}{1.6-1}
+解下列方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle y'^2-y^2=0$；
+    \item $\displaystyle 8y'^2=27y$；
+    \item $\displaystyle y^2(y'^2+1)=1$；
+    \item $\displaystyle y'^2=4y^3(1-y)$；
+    \item $\displaystyle 4(1-y)=(3y-2)^2y'^2$；
+    \item $\displaystyle y'(2y-y')=y^2\sin^2x$；
+    \item $\displaystyle y'(x-\ln y')=1$；
+    \item $\displaystyle y'^2-2yy'=y^2(e^x-1)$；
+    \item $\displaystyle y=\ln(1+y'^2)$；
+    \item $\displaystyle y=(y'-1)e^{y'}$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item $p^2-y^2=0$ 分解为 $p=\pm y$，故
+\[
+\boxed{y=C\e^x\quad\text{或}\quad y=C\e^{-x}}.
+\]
+\item $y=8p^2/27$。微分后得
+$p=\frac{16}{27}pp'$。在 $p\ne0$ 的弧段，
+$p'=27/16$，故 $p=27(x-C)/16$，再代回 $y=8p^2/27$；
+另须检查 $p=0$：
+\[
+\boxed{y=\frac{27}{32}(x-C)^2},\qquad \boxed{y\equiv0}.
+\]
+在抛物线顶点处 $y=y'=0$，可将抛物线弧与零解可微拼接，
+从而得到带有零解区间的分段解。
+\item 原方程是 $y^2(1+p^2)=1$，故 $0<y^2\le1$，并有
+$y\,\dd y/\sqrt{1-y^2}=\pm\dd x$。
+积分得 $-\sqrt{1-y^2}=\pm x+C$，整理为
+\[
+\boxed{(x-C)^2+y^2=1},
+\]
+取其中 $y\ne0$、满足原方程的可微圆弧。
+分离时还须补上 $\boxed{y\equiv1}$、$\boxed{y\equiv-1}$。
+圆弧在 $y=\pm1$ 处与相应常值解有相同的一阶导数，
+因此也允许作可微拼接。
+\item 方程可写为
+\[
+\frac{\dd y}{\dd x}=\pm2y^{3/2}\sqrt{1-y}.
+\]
+对非常值分支分离变量，并令 $y=\sin^2\theta$：
+\[
+\int\frac{\dd y}{2y^{3/2}\sqrt{1-y}}
+=\int\csc^2\theta\dd\theta=-\cot\theta.
+\]
+因此 $\sqrt{(1-y)/y}=\pm(x-C)$，解出 $y$ 得到
+\[
+\boxed{y=\frac1{1+(x-C)^2}},
+\]
+另有常值解 $\boxed{y\equiv0}$、$\boxed{y\equiv1}$。
+由于 $y=1$ 处两种斜率同为零，也可以在常值弧段与上述非平凡弧段之间作可微拼接。
+\item 由题式解出
+\[
+\frac{\dd x}{\dd y}=\pm\frac{3y-2}{2\sqrt{1-y}}.
+\]
+令 $u=\sqrt{1-y}$，则 $y=1-u^2,\ \dd y=-2u\dd u$，所以
+\[
+\dd x=\pm(3u^2-1)\dd u.
+\]
+积分得参数式
+\[
+\boxed{x=C\pm(u^3-u),\qquad y=1-u^2},
+\]
+其中 $u\ge0$，只取 $\dd x/\dd u\ne0$ 的弧段，使 $y$ 可看成 $x$ 的函数；
+并补上 $\boxed{y\equiv1}$。
+\item 方程等价于 $(p-y)^2=y^2\cos^2x$，即在固定分支上
+$y'=(1\pm\cos x)y$。分离变量积分得
+\[
+\boxed{y=C\e^{x+\sin x}\quad\text{或}\quad y=C\e^{x-\sin x}}.
+\]
+\note{在 $\cos x=0$ 处两种斜率相同，允许在该点作保持可微的分支拼接；$y\equiv0$ 已由 $C=0$ 包含。}
+\item 由 $p(x-\ln p)=1$ 且 $\ln p$ 有定义，必有 $p>0$，并且
+$x=1/p+\ln p$，没有额外的 $x$ 常数。再用
+$\dd y=p\,\dd x$：
+\[
+\frac{\dd x}{\dd p}=\frac1p-\frac1{p^2},
+\qquad
+\frac{\dd y}{\dd p}=1-\frac1p.
+\]
+积分得到参数解
+\[
+\boxed{x=\frac1p+\ln p,\qquad y=p-\ln p+C},\quad p>0.
+\]
+\item $(p-y)^2=y^2\e^x$，即
+$y'=(1\pm\e^{x/2})y$；分离变量积分，故
+\[
+\boxed{y=C\exp\!\left(x+2\e^{x/2}\right)
+\quad\text{或}\quad
+y=C\exp\!\left(x-2\e^{x/2}\right)}.
+\]
+\item $y=\ln(1+p^2)$。对 $x$ 求导：
+\[
+p=\frac{2p}{1+p^2}\frac{\dd p}{\dd x}.
+\]
+$p=0$ 给出 $y\equiv0$；在 $p\ne0$ 的分支上约去 $p$，得到
+$\dd x/\dd p=2/(1+p^2)$，积分得
+\[
+\boxed{x=2\arctan p+C,\qquad y=\ln(1+p^2)},
+\]
+另有 $\boxed{y\equiv0}$。
+\item $y=(p-1)\e^p$。对 $x$ 求导：
+\[
+p=\frac{\dd}{\dd p}[(p-1)\e^p]p'=p\e^p p'.
+\]
+$p=0$ 给出 $y=-1$；在 $p\ne0$ 的分支上 $p'=\e^{-p}$，
+即 $\dd x/\dd p=\e^p$。积分得
+\[
+\boxed{x=\e^p+C,\qquad y=(p-1)\e^p},
+\]
+并补上由 $p=0$ 得到的 $\boxed{y\equiv-1}$。
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{1.6-2}
+求拉格朗日--达朗贝尔方程
+  \[
+    y=xf(y')+g(y')
+  \]
+  的通解，其中 $f,g$ 均连续可微。
+\end{problem}
+
+\begin{solution}
+对
+\[
+y=xf(p)+g(p),\qquad p=y',
+\]
+微分得
+\[
+p=f(p)+[xf'(p)+g'(p)]\frac{\dd p}{\dd x}.
+\]
+在 $p\ne f(p)$ 的分支上，把 $x$ 看成 $p$ 的函数，得到一阶线性方程
+\[
+\frac{\dd x}{\dd p}-\frac{f'(p)}{p-f(p)}x
+=\frac{g'(p)}{p-f(p)}.
+\]
+令
+\[
+\mu(p)=\exp\!\left[-\int\frac{f'(p)}{p-f(p)}\dd p\right],
+\]
+线性方程的积分因子公式给出完整的参数形式通解
+\[
+\boxed{
+x(p)=\frac{C+\displaystyle\int
+\mu(p)\frac{g'(p)}{p-f(p)}\dd p}{\mu(p)},\qquad
+y(p)=x(p)f(p)+g(p)}.
+\]
+此外，还应补上满足 $c=f(c)$ 的全部直线解
+\[
+\boxed{y=cx+g(c)}.
+\]
+\end{solution}
+
+
+\sect{1.7}
+\begin{problem}{1.7-1}
+解下列方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle (xy'''-y'')^2=(y''')^2+1$；
+    \item $\displaystyle xy''+(x^2-1)(y'-1)=0$；
+    \item $\displaystyle a^2(y'')^2=(1+y'^2)^3$；
+    \item $\displaystyle yy''-(y')^2-y^2y'=0$；
+    \item $\displaystyle yy''+(y')^2+1=0$；
+    \item $\displaystyle 3(y'')^2-y'y'''=0$；
+    \item $\displaystyle yy''-(y')^2-6xy^2=0$；
+    \item $\displaystyle x^2yy''-x^2(y')^2-4xyy'+8y^2=0$；
+    \item $\displaystyle (y-x)y''+(y')^2-2y'=1-\sin x$；
+    \item $\displaystyle (x+y^2)y'''+6yy'y''+3y''+2(y')^3=0$；
+    \item $\displaystyle x^2yy''+(xy'-y)^2=0$；
+    \item $\displaystyle x\bigl(yy''+(y')^2\bigr)+3yy'=2x^3$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 令 $z=y''$、$p=z'=y'''$。在一个固定符号的分支上，原式等价于
+\[
+z=xp+\sigma\sqrt{1+p^2},\qquad \sigma\in\{1,-1\}.
+\]
+对 $x$ 求导并用 $z'=p$，得
+\[
+\left(x+\sigma\frac{p}{\sqrt{1+p^2}}\right)p'=0.
+\]
+若 $p'=0$，取 $p=C$，则
+$y''=Cx+\sigma\sqrt{1+C^2}$；两次积分得到三常数解
+\[
+\boxed{y=\frac C6x^3+
+\frac{\sigma\sqrt{1+C^2}}2x^2+C_1x+C_2}.
+\]
+另一分支满足
+$x=-\sigma p/\sqrt{1+p^2}$，只能在 $|x|<1$ 上，
+解出 $p=-\sigma x/\sqrt{1-x^2}$，继而
+$y''=\sigma\sqrt{1-x^2}$。因此还应列出包络解
+\[
+\boxed{y=C_1x+C_2+
+\sigma\int_{0}^{x}(x-s)\sqrt{1-s^2}\dd s},\qquad |x|<1.
+\]
+积分式可直接求两次导数核对。若在某点常数分支与包络分支的 $y,y',y''$ 相接，也可得到分段解。
+\item 令 $z=y'-1$，则 $xz'+(x^2-1)z=0$，故
+\[
+\boxed{y=x+C_1\e^{-x^2/2}+C_2}.
+\]
+\item 当 $a=0$ 时方程无实解。设 $a\ne0$，令 $z=y'$，
+由 $a^2(z')^2=(1+z^2)^3$ 分离变量，
+\[
+\frac{z}{\sqrt{1+z^2}}=\pm\frac{x-C_1}{a}.
+\]
+对上式求解 $z$ 再积分，得到半径 $|a|$ 的圆弧：
+\[
+\boxed{(x-C_1)^2+(y-C_2)^2=a^2}.
+\]
+\item 在 $y\ne0$ 上除以 $y^2$，得到
+\[
+\left(\frac{y'}y\right)'-y'=0,
+\]
+故
+\[
+\boxed{\frac{y'}y-y=C_1}.
+\]
+这已经是变量可分离方程。若 $C_1\ne0$，可写成
+\[
+\boxed{\ln\left|\frac{y}{y+C_1}\right|=C_1x+C_2};
+\]
+若 $C_1=0$，则 $y=-1/(x+C_2)$。
+分离时还除过 $y$ 和 $y+C_1$；直接代回原方程可知
+\[
+\boxed{y\equiv K\quad(K\in\mathbb R)}
+\]
+均是常值解。
+\item 左端前两项是 $(yy')'$，所以
+\[
+(yy')'+1=0.
+\]
+积分两次得
+\[
+\boxed{y^2=-x^2+C_1x+C_2}.
+\]
+\item 令 $p=y'$，原式成为 $pp''=3(p')^2$。
+在 $p\ne0$ 的弧段，
+\[
+\left(\frac{p'}{p^3}\right)'
+=\frac{pp''-3(p')^2}{p^4}=0.
+\]
+若该常数为零，则 $p$ 为常数，得到仿射解；
+否则由 $p'=Kp^3$ 分离变量，
+$p^{-2}=Ax+B>0$（$A\ne0$），再积分得
+\[
+\boxed{y=C_3\pm\frac{2}{A}\sqrt{Ax+B}},
+\]
+另有全部仿射解 $\boxed{y=C_1x+C_2}$。
+\item 在 $y\ne0$ 上除以 $y^2$ 后
+\[
+\left(\frac{y'}{y}\right)'=6x.
+\]
+积分得 $y'/y=3x^2+C_1$，再次分离变量，得到
+\[
+\boxed{y=C_2\exp(x^3+C_1x)}.
+\]
+$C_2=0$ 已包括先前除去的零解。本题仅用降阶和变量分离。
+\item 令 $u=y'/y$，则
+\[
+x^2u'-4xu+8=0.
+\]
+写成标准线性形式 $u'-4u/x=-8/x^2$，积分因子为 $x^{-4}$，因此
+\[
+(x^{-4}u)'=-8x^{-6},\qquad
+u=\frac{8}{5x}+C_1x^4.
+\]
+再由 $u=(\ln|y|)'$ 积分，得到
+\[
+\boxed{y=C_2|x|^{8/5}\exp\!\left(\frac{C_1x^5}{5}\right)}.
+\]
+\item 令 $z=y-x$。方程化为
+\[
+(zz')'=2-\sin x.
+\]
+两次积分后
+\[
+\boxed{(y-x)^2=2x^2+2\sin x+C_1x+C_2}.
+\]
+\item 原方程恰为
+\[
+\frac{\dd}{\dd x}\left[(x+y^2)y''+2y(y')^2+2y'\right]=0.
+\]
+第一次积分得
+\[
+(x+y^2)y''+2y(y')^2+2y'=C_1.
+\]
+注意左端又是 $[(x+y^2)y'+y]'$，故第二次积分得
+\[
+(x+y^2)y'+y=C_1x+C_2.
+\]
+而左端还是 $(xy+y^3/3)'$，故第三次积分得到
+\[
+\boxed{xy+\frac{y^3}{3}=\frac{C_1}{2}x^2+C_2x+C_3}.
+\]
+\item 令 $u=y/x$。原式等价于
+\[
+\frac{\dd}{\dd x}(x^2uu')=0,
+\]
+从而 $x^2uu'=C_1$。积分 $u\dd u=C_1x^{-2}\dd x$，再代回 $u=y/x$，得到
+\[
+\boxed{y^2=C_1x^2+C_2x}.
+\]
+\item 令 $z=yy'$，则
+\[
+xz'+3z=2x^3.
+\]
+先解线性方程再积分，得到
+\[
+\boxed{y^2=\frac{x^4}{6}+\frac{C_1}{x^2}+C_2}.
+\]
+\end{enumerate}
+\end{solution}
+
+
+\sect{1.8}
+\begin{problem}{1.8-1}
+求抛物线族 $y=ax^2$ 的正交轨线。
+\end{problem}
+
+\begin{solution}
+$y=ax^2$ 给出 $y'=2y/x$，正交轨线斜率为 $-x/(2y)$。故
+\[
+\boxed{x^2+2y^2=C}.
+\]
+\end{solution}
+
+\begin{problem}{1.8-2}
+求曲线族
+  \[
+    \frac{x^2}{a^2}+\frac{y^2}{a^2+\lambda}=1
+  \]
+  的正交轨线，其中 $\lambda$ 为参数。
+\end{problem}
+
+\begin{solution}
+从
+\[
+\frac{x^2}{a^2}+\frac{y^2}{a^2+\lambda}=1
+\]
+求导得 $x/a^2+yy'/(a^2+\lambda)=0$。
+又由原式解出 $a^2+\lambda=a^2y^2/(a^2-x^2)$，
+代入即知原曲线族斜率为 $-xy/(a^2-x^2)$，
+故正交轨线满足
+\[
+y' =\frac{a^2-x^2}{xy}.
+\]
+积分得
+\[
+\boxed{x^2+y^2-2a^2\ln|x|=C}.
+\]
+推导先取 $x\ne0$；直线 $\boxed{x=0}$ 与原曲线族在交点处也正交，
+是另一个轨线。
+\end{solution}
+
+\begin{problem}{1.8-3}
+求满足下述条件的曲线：由原点到此曲线任一点切线的距离为此点的向径长度的 $k$ 倍。
+\end{problem}
+
+\begin{solution}
+用极坐标 $r=r(\theta)$。切向量沿
+$r'(\theta)\mathbf e_r+r(\theta)\mathbf e_\theta$，
+长度为 $\sqrt{r'^2+r^2}$；原点、切点和切向量构成的平行四边形面积为 $r^2$。
+所以原点到切线的距离为
+\[
+d=\frac{r^2}{\sqrt{r^2+(\dd r/\dd\theta)^2}}.
+\]
+令 $d=kr$，在 $r>0$ 且 $0<k<1$ 时，
+$r'/r=\pm\sqrt{1-k^2}/k$，积分得
+\[
+\boxed{r=C\exp\!\left(\pm\frac{\sqrt{1-k^2}}{k}\theta\right)}.
+\]
+$k=1$ 时 $r'=0$，为圆 $r=C$；$k=0$ 时切线穿过原点，
+对应过原点的直线段；$k>1$ 时因 $d\le r$，不存在非零实曲线。
+\end{solution}
+
+\begin{problem}{1.8-4}
+一质点沿 $x$ 轴运动，在运动过程中只受到一个与速度成正比的反力的作用。设它从原点出发时，初速为 $10\,\mathrm{m/s}$，当它到达坐标为 $2.5\,\mathrm m$ 的点时，其速度为 $5\,\mathrm{m/s}$，求质点到达坐标为 $4\,\mathrm m$ 的点时的速度。
+\end{problem}
+
+\begin{solution}
+$m\dot v=-kv$，又 $\dot v=v\,\dd v/\dd x$，故 $\dd v/\dd x=-k/m$。由 $v(0)=10,v(2.5)=5$ 得 $k/m=2$，所以
+\[
+v(x)=10-2x
+\]
+（到停下前），特别地
+\[
+\boxed{v(4)=2\ \mathrm{m/s}}.
+\]
+\end{solution}
+
+\begin{problem}{1.8-5}
+质量为 $1000\,\mathrm{kg}$ 的物体，在水中由静止开始下沉，在下沉过程中除受重力外还受两个力。一个是浮力为 $20\,\mathrm N$，另一为水的阻力为 $10v\,\mathrm N$（其中 $v$ 为下沉速度，单位为 $\mathrm{m/s}$），求 $5\,\mathrm s$ 后物体下沉的距离，并求下沉的极限速度。
+\end{problem}
+
+\begin{solution}
+取向下为正，按 $g=9.8\ \mathrm{m/s^2}$，有
+\[
+1000v'=1000g-20-10v,
+\]
+故极限速度
+\[
+\boxed{v_\infty=978\ \mathrm{m/s}}.
+\]
+由 $v(0)=0$，
+\[
+v(t)=978(1-\e^{-0.01t}),\qquad
+s(t)=978\left[t-100(1-\e^{-0.01t})\right].
+\]
+因此
+\[
+\boxed{s(5)\approx120.24\ \mathrm m}.
+\]
+\end{solution}
+
+\begin{problem}{1.8-6}
+质量为 $100\,\mathrm{kg}$ 的物体，在和水平面成 $30^\circ$ 的斜面上由静止状态下滑，如果不计算摩擦，试求：
+  \begin{enumerate}[label=(\arabic*)]
+    \item 物体运动的微分方程；
+    \item 求 $5\,\mathrm s$ 后物体下滑的距离，以及此时的速度和加速度。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+沿斜面取坐标 $s$：
+\[
+\boxed{s''=g\sin30^\circ=4.9},\qquad s(0)=s'(0)=0.
+\]
+依次积分得 $s'(t)=4.9t$、$s(t)=2.45t^2$，所以
+\[
+\boxed{s(5)=61.25\ \mathrm m,\quad v(5)=24.5\ \mathrm{m/s},\quad a=4.9\ \mathrm{m/s^2}}.
+\]
+\end{solution}
+
+\begin{problem}{1.8-7}
+一容器盛盐水 $100\,\mathrm L$，其中含盐 $50\,\mathrm g$，现将含盐 $2\,\mathrm{g/L}$ 的盐水，以 $3\,\mathrm{L/min}$ 的速度注入容器内，设流入的盐水与原有的盐水因搅拌而成为均匀的混合物。同时此混合物又以流速 $2\,\mathrm{L/min}$ 流出，试求 $30\,\mathrm{min}$ 后，容器内所含的盐量。
+\end{problem}
+
+\begin{solution}
+设盐量为 $x(t)$ g，体积为 $100+t$ L。则
+\[
+x'=6-\frac{2x}{100+t},\qquad x(0)=50.
+\]
+乘积分因子 $(100+t)^2$，得
+\[
+\bigl[(100+t)^2x(t)\bigr]'=6(100+t)^2.
+\]
+积分为 $(100+t)^2x=2(100+t)^3+C$，
+由 $x(0)=50$ 得 $C=-1.5\times10^6$，于是
+\[
+x(t)=2(100+t)-\frac{1.5\times10^6}{(100+t)^2}.
+\]
+故
+\[
+\boxed{x(30)\approx171.24\ \mathrm g}.
+\]
+\end{solution}
+
+\begin{problem}{1.8-8}
+在凶杀案件中，死亡时间的推断对认定和排除嫌疑人有无作案时间，划定侦查范围乃至案件的侦破均具有重要的法医学意义。
+
+  警方于北京时间 $20{:}20$ 接到报警有人在家中遇害，立即赶到凶杀现场，随即法医在晚上 $20{:}30$ 测得死者体温为 $33.4^\circ\mathrm C$，$1\,\mathrm h$ 后当死者即将被抬走时在现场再次测得死者体温为 $32.2^\circ\mathrm C$，并可确定室内温度在几个小时内始终保持在 $23^\circ\mathrm C$。警方经过初步排查，认为郑某具有较大嫌疑。但有确凿证据说明郑某在 $17{:}30$ 之前的整个下午一直在办公室，而郑某到死者的遇害地点步行只需 $5\,\mathrm{min}$。
+  \begin{enumerate}[label=(\arabic*)]
+    \item 请你根据牛顿冷却定律（即物体在空气中冷却的速度与物体温度和空气温度之差成正比）计算死者的被害时间，确定能不能从时间上排除郑某的作案嫌疑？
+    \item 警方经过深入的调查取证，发现死者在当天下午曾在家测过体温，发烧到 $38.8^\circ\mathrm C$，死者体内没有发现服用过任何退烧药的迹象，试问据此可排除郑某作案的可能性吗？
+    \item 你了解法医学上根据牛顿冷却定律进行死亡时间推断的历史吗？
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+令 $t$（小时）从 20:30 起计，室温为 $23^\circ\mathrm C$。模型为
+\[
+T(t)=23+A\e^{-kt}.
+\]
+由 $T(0)=33.4,T(1)=32.2$ 得
+\[
+A=10.4,\qquad \e^{-k}=\frac{9.2}{10.4}=\frac{23}{26},
+\quad k=\ln\frac{26}{23}.
+\]
+\begin{enumerate}[label=(\arabic*)]
+\item 若死亡时体温按 $37^\circ\mathrm C$ 计，则从死亡到 20:30 的时间为
+\[
+\tau=\frac{\ln[(37-23)/10.4]}{\ln(26/23)}\approx2.425\ \mathrm h.
+\]
+推得死亡约在 \boxed{18{:}05}。郑某 17:30 后离开办公室并有 5 分钟路程，因此仅按此模型不能排除其嫌疑。
+\item 按本题及配套参考书的建模思路，取死亡时体温为下午测得的
+$38.8^\circ\mathrm C$，则
+\[
+\tau=\frac{\ln[(38.8-23)/10.4]}{\ln(26/23)}\approx3.411\ \mathrm h,
+\]
+推得死亡约在 \boxed{17{:}05}，比郑某最早可能抵达的
+$17{:}35$ 早约半小时。故按这一模型假设，\boxed{可以从时间上排除郑某}。
+\note{下午曾测得 $38.8^\circ\mathrm C$，并不能严格推出死亡时仍为该体温；没有服用退烧药也不足以证明体温不变。因此“可以排除”的结论依赖上述额外假设，实际判断还需核实死前体温。}
+\item 牛顿冷却定律给出温差按指数衰减的基础模型。
+法医学后来发现，尸体初期冷却并非始终服从单一指数，
+实际估时还受到体重、衣着、空气流动等因素影响。
+例如 Henssge 等人在 20 世纪后期发展了基于直肠温度的估时列线图，
+并研究不同冷却条件的修正。\footnote{参见 C. Henssge,
+\emph{Death time estimation in case work. I. The rectal temperature time of death nomogram},
+Forensic Science International, 1988；
+\url{https://pubmed.ncbi.nlm.nih.gov/3192144/}。}
+本题的两次测温计算是理想模型示例，实际估时需结合现场条件并给出误差范围。
+\end{enumerate}
+\end{solution}
+
+
+\sect{1.9}
+\begin{problem}{1.9-1}
+求泛函
+  \[
+    J[y]=\int_a^b\frac{\sqrt{1+y'^2}}{x}\dd x
+  \]
+  的极值曲线。
+\end{problem}
+
+\begin{analysis}
+若 $F$ 不显含 $y$，则 $F_{y'}=C$；若 $F$ 不显含 $x$，可用 Beltrami 恒等式 $F-y'F_{y'}=C$。
+\end{analysis}
+
+\begin{solution}
+记被积函数为 $F(x,y,y')$，使用 Euler--Lagrange 方程
+\[
+F_y-\frac{\dd}{\dd x}F_{y'}=0.
+\]
+\note{本节所求“极值曲线”先指满足必要条件的驻曲线；若指定端点，还须选取经过端点的成员。判定极大、极小需再检查充分条件。}
+
+$F$ 不显含 $y$，故 $F_{y'}=C$：
+\[
+\frac{y'}{x\sqrt{1+y'^2}}=C.
+\]
+若 $C=0$，则 $y'=0$，得到水平直线 $y=C_2$。
+若 $C\ne0$，在 $|Cx|<1$ 的区间平方并按原式定符号，解出
+\[
+y'=\frac{Cx}{\sqrt{1-C^2x^2}}.
+\]
+积分得
+\[
+y=C_2-\frac1C\sqrt{1-C^2x^2}.
+\]
+整理得到
+\[
+\boxed{x^2+(y-C_2)^2=C_1^2},
+\]
+即圆心在 $y$ 轴上的圆弧（在不穿过 $x=0$ 的区间内），
+此外有 $\boxed{y=C_2}$。
+\end{solution}
+
+\begin{problem}{1.9-2}
+设 $A,B$ 是平面内给定的两点，求连接 $A,B$ 两点的曲线中，使得两点间弧长最短的曲线。
+\end{problem}
+
+\begin{solution}
+弧长泛函 $\int\sqrt{1+y'^2}\dd x$ 不显含 $y$，
+其 Euler--Lagrange 方程给出
+$y'/\sqrt{1+y'^2}=C$，因此 $y'=C_1$，极值曲线为
+\[
+\boxed{y=C_1x+C_2},
+\]
+即连接两点的直线段。任意分段光滑曲线的每一小弧长度不小于其端点间的直线距离；
+再用三角不等式，得到总弧长不小于 $|AB|$。线段达到等号，因此确为最短。
+若 $A,B$ 的横坐标相同，最短曲线是竖直线段 $x=\text{常数}$，
+此时不能用 $y(x)$ 的图像形式表示。
+\end{solution}
+
+\begin{problem}{1.9-3}
+求下列各泛函的极值曲线：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle J[y]=\int_a^b\frac{\sqrt{1+y'^2}}{y}\dd x$；
+    \item $\displaystyle J[y]=\int_a^b\sqrt{y(1+y'^2)}\dd x$；
+    \item $\displaystyle J[y]=\int_a^b y'(1+x^2y')\dd x$；
+    \item $\displaystyle J[y]=\int_a^b\bigl((y')^2+2yy'-16y^2\bigr)\dd x$；
+    \item $\displaystyle J[y]=\int_a^b\frac{1+y^2}{(y')^2}\dd x$；
+    \item $\displaystyle J[y]=\int_a^b\bigl(xy'+(y')^2\bigr)\dd x$。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 在 $y\ne0$ 的固定符号区间，
+Beltrami 恒等式给出 $[y\sqrt{1+y'^2}]^{-1}=C\ne0$。
+记 $R=1/|C|$，则 $y'^2=R^2/y^2-1$。
+分离为 $\dd x/\dd y=\pm y/\sqrt{R^2-y^2}$，
+积分并平方，得到
+\[
+\boxed{(x-C_1)^2+y^2=C_2^2}.
+\]
+\item 设 $y>0$。Beltrami 恒等式成为
+$\sqrt y/\sqrt{1+y'^2}=C>0$，令 $A=C^2$，
+则 $y'^2=y/A-1$。
+积分 $\dd x/\dd y=\pm\sqrt A/\sqrt{y-A}$，得到
+\[
+\boxed{y=A+\frac{(x-B)^2}{4A}},\qquad A>0.
+\]
+\item $F_{y'}=1+2x^2y'=C$，即
+$y'=(C-1)/(2x^2)$，积分得
+\[
+\boxed{y=C_1+\frac{C_2}{x}},\qquad x\ne0.
+\]
+\item 此时 $F_y=2y'-32y$，
+$\frac{\dd}{\dd x}F_{y'}=2y''+2y'$，
+故 Euler--Lagrange 方程为 $y''+16y=0$，解出
+\[
+\boxed{y=C_1\cos4x+C_2\sin4x}.
+\]
+\item 原泛函要求 $y'\ne0$。
+Beltrami 恒等式给出 $3(1+y^2)/y'^2=C>0$。
+记 $K=C/3$，则 $\dd y/\sqrt{1+y^2}=\pm\dd x/\sqrt K$。
+积分后
+\[
+\boxed{y=\sinh(C_1x+C_2)},\qquad C_1\ne0.
+\]
+\item $F_{y'}=x+2y'=C$，即 $y'=(C-x)/2$，积分得
+\[
+\boxed{y=-\frac{x^2}{4}+C_1x+C_2}.
+\]
+\end{enumerate}
+\end{solution}
+
+
+\sect{1.10}
+\begin{problem}{1.10-1}
+求解下列里卡蒂方程：
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\displaystyle x^4y'+y^2=4x^6$；
+    \item $\displaystyle x^3y'=x^4+y^2$；
+    \item $\displaystyle y'+\frac{y^2}{2}+\frac{1}{2x^2}=0$；
+    \item $\displaystyle y'=\frac{y^2}{2}-\frac{y}{x}-\frac{1}{2x^2}$；
+    \item $\displaystyle y'=y^2-\frac{2y}{x}-\frac{2}{x^2}$；
+    \item $\displaystyle y'=-y^2-\frac{1}{4x^2}$；
+    \item $\displaystyle y'=-\frac1x+\frac yx+\frac{y^2}{x^3}$；
+    \item $\displaystyle x^2y'=x^2y^2+xy+1$。
+  \end{enumerate}
+\end{problem}
+
+\begin{analysis}
+先代入幂函数 $y_p=kx^m$ 寻找特解，再令 $y=y_p+1/u$。对
+$y'=a(x)y^2+b(x)y+c(x)$，代入并消去 $y_p$ 满足的方程，得到
+\[
+u'+[2a(x)y_p+b(x)]u=-a(x).
+\]
+\end{analysis}
+
+\begin{solution}
+幂次由方程各项的 $x$ 次数确定，代入后 $k$ 满足的代数式如下：
+\[
+\begin{array}{c|c|c}
+\text{小题}&\text{试探式}&k\text{ 所满足的方程}\\ \hline
+(1)&kx^3&k^2+3k-4=0\\
+(2)&kx^2&(k-1)^2=0\\
+(3)&k/x&(k-1)^2=0\\
+(4)&k/x&k^2-1=0\\
+(5)&k/x&k^2-k-2=0\\
+(6)&k/x&(k-\tfrac12)^2=0\\
+(7)&kx&k^2-1=0\\
+(8)&k/x&(k+1)^2=0
+\end{array}
+\]
+例如第 (1) 题代入 $y_p=kx^3$ 后，
+$3kx^6+k^2x^6=4x^6$，所以 $k^2+3k-4=0$。
+下表取其中一个根并列出 $u$ 方程：
+\[
+\begin{array}{c|c|c}
+\text{小题}&y_p&u\text{ 的线性方程}\\ \hline
+(1)&x^3&u'-2u/x=1/x^4\\
+(2)&x^2&u'+2u/x=-1/x^3\\
+(3)&1/x&u'-u/x=1/2\\
+(4)&1/x&u'=-1/2\\
+(5)&2/x&u'+2u/x=-1\\
+(6)&1/(2x)&u'-u/x=1\\
+(7)&x&u'+(1/x+2/x^2)u=-1/x^3\\
+(8)&-1/x&u'-u/x=-1
+\end{array}
+\]
+\begin{enumerate}[label=(\arabic*)]
+\item 取 $y_p=x^3$。由 $(u/x^2)'=x^{-6}$ 积分得
+$u=Cx^2-1/(5x^3)$，所以
+\[
+\boxed{y=x^3+\frac1{Cx^2-\frac1{5x^3}}}.
+\]
+\item 取 $y_p=x^2$。由 $(x^2u)'=-1/x$ 积分得
+$u=(C-\ln|x|)/x^2$，所以
+\[
+\boxed{y=x^2+\frac{x^2}{C-\ln|x|}}.
+\]
+\item 取 $y_p=1/x$。由 $(u/x)'=1/(2x)$ 积分得
+$u=x(C+\tfrac12\ln|x|)$，所以
+\[
+\boxed{y=\frac1x+\frac1{x\left(C+\frac12\ln|x|\right)}}.
+\]
+\item 取 $y_p=1/x$。此时 $u'=-1/2$，积分得
+$u=C-x/2$，所以
+\[
+\boxed{y=\frac1x+\frac1{C-x/2}}.
+\]
+\item 取 $y_p=2/x$。由 $(x^2u)'=-x^2$ 积分得
+$u=-x/3+C/x^2$，所以
+\[
+\boxed{y=\frac2x+\frac1{-x/3+C/x^2}}.
+\]
+\item 取 $y_p=1/(2x)$。由 $(u/x)'=1/x$ 积分得
+$u=x(\ln|x|+C)$，所以
+\[
+\boxed{y=\frac1{2x}+\frac1{x(\ln|x|+C)}}.
+\]
+\item 取 $y_p=x$。积分因子为 $x\e^{-2/x}$，
+故 $(x\e^{-2/x}u)'=-\e^{-2/x}/x^2$。
+积分得 $u=(C\e^{2/x}-1/2)/x$，所以
+\[
+\boxed{y=x+\frac{x}{C\e^{2/x}-1/2}}.
+\]
+\item 取 $y_p=-1/x$。由 $(u/x)'=-1/x$ 积分得
+$u=x(C-\ln|x|)$，所以
+\[
+\boxed{y=-\frac1x+\frac1{x(C-\ln|x|)}}.
+\]
+\end{enumerate}
+\note{每小题表中的 $y_p$ 本身也是原方程的解，须与含 $1/u$ 的公式一并保留。涉及 $1/x$、$\ln|x|$ 的解均取在不含 $x=0$ 的区间；还须避开所列式子的零分母。}
+\end{solution}
+
+\begin{problem}{1.10-2}
+证明：里卡蒂方程 (1.99) 的任意 4 个解 $y_i(x),i=1,2,3,4$ 的交比 $(y_1,y_2,y_3,y_4)$ 等于常数，即
+  \[
+    (y_1,y_2,y_3,y_4)
+    :=\frac{y_4-y_2}{y_4-y_1}\cdot\frac{y_3-y_1}{y_3-y_2}
+    =C,
+  \]
+  其中 $C$ 为常数。
+\end{problem}
+
+\begin{solution}
+把题中的里卡蒂方程写成
+$y'=p(x)y^2+q(x)y+r(x)$。
+设四个解在同一区间内两两不同，使题中的分母有意义。
+任意两个解 $y_i,y_j$ 的差满足
+\[
+(y_i-y_j)'=\{p(x)[y_i+y_j]+q(x)\}(y_i-y_j).
+\]
+因而
+\[
+\frac{\dd}{\dd x}\ln|y_i-y_j|
+=p(x)[y_i+y_j]+q(x).
+\]
+对交比的绝对值取对数并求导，四项分别为
+$p(y_4+y_2)+q$、$-p(y_4+y_1)-q$、
+$p(y_3+y_1)+q$、$-p(y_3+y_2)-q$，和为零，即
+\[
+\frac{\dd}{\dd x}\ln\left|
+\frac{y_4-y_2}{y_4-y_1}\frac{y_3-y_1}{y_3-y_2}
+\right|=0.
+\]
+交比在连通区间上连续且不为零，符号不变，故
+\[
+\boxed{(y_1,y_2,y_3,y_4)
+=\frac{y_4-y_2}{y_4-y_1}\frac{y_3-y_1}{y_3-y_2}=C}.
+\]
+\end{solution}
+
+
+\end{document}

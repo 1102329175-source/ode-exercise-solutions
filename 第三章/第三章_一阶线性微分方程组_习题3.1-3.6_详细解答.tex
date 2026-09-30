@@ -1,0 +1,1354 @@
+% !TEX program = xelatex
+% 本文件为第三章独立解答。建议用 XeLaTeX 编译两次。
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+\usepackage[a4paper,margin=2.15cm,headheight=16pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{booktabs,longtable,array,enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor,fancyhdr,hyperref}
+\usepackage{microtype}
+\definecolor{navy}{HTML}{264B86}
+\definecolor{blue}{HTML}{356BA8}
+\definecolor{pink}{HTML}{B84F82}
+\definecolor{palepink}{HTML}{FBEAF2}
+\definecolor{pale}{HTML}{EAF3FB}
+\definecolor{gray}{HTML}{536171}
+\hypersetup{colorlinks=true,linkcolor=navy,urlcolor=blue,pdftitle={常微分方程（第三版）第三章习题详细解答}}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\setlist[enumerate]{leftmargin=2.2em,itemsep=0.45em,topsep=0.35em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}《常微分方程》（第三版）习题解答}
+\fancyhead[R]{\small\color{pink}第三章·一阶线性微分方程组}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\e}{\mathrm e}
+\newcommand{\R}{\mathbb R}
+\newcommand{\note}[1]{\par\smallskip\noindent\textcolor{pink}{\bfseries 说明：}#1\par\smallskip}
+\tcbset{
+  exercisebox/.style={enhanced,breakable,arc=0pt,outer arc=0pt,
+    boxsep=0pt,left=10pt,right=10pt,top=10pt,bottom=10pt,
+    before skip=10pt,after skip=6pt,
+    coltitle=navy,fonttitle=\bfseries,toptitle=6pt,bottomtitle=6pt,
+    titlerule=0.4pt}
+}
+\newtcolorbox{problem}[1]{exercisebox,
+  colback=white,colframe=blue,colbacktitle=pale,
+  boxrule=0.55pt,leftrule=2pt,
+  title={题目\quad #1}}
+\newtcolorbox{solution}{exercisebox,
+  colback=palepink!15!white,colframe=pink,colbacktitle=palepink,
+  boxrule=0.45pt,leftrule=2pt,
+  title={解答}}
+\newtcolorbox{analysis}{exercisebox,
+  colback=pale!30!white,colframe=blue,colbacktitle=pale,
+  boxrule=0.4pt,leftrule=2pt,
+  title={分析}}
+\newcommand{\sect}[1]{\section*{\textcolor{navy}{习题 #1}}}
+
+\begin{document}
+\begin{center}
+  {\LARGE\bfseries\color{navy}常微分方程（第三版）第三章习题解答\par}
+  \vspace{0.35em}
+  {\color{pink}一阶线性微分方程组 · 习题 3.1--3.6\par}
+\end{center}
+\begin{center}
+  \small\color{gray}本答案使用 AI 工具制作，请读者确认正确性后再使用。除非题目另有说明，本稿接受隐式解。
+\end{center}
+\sect{3.1}
+\begin{problem}{3.1-1}
+将下列方程式（组）化成一阶方程组：
+  \begin{enumerate}[label=(\arabic*)]
+    \item
+    \[
+      \ddot y+f(x)\dot y+g(x)=0;
+    \]
+
+    \item
+    \[
+      m\frac{d^2x}{dt^2}
+      +c\frac{dx}{dt}
+      +kx=f(t);
+    \]
+
+    \item
+    \[
+      y'''+a_1(x)y''+a_2(x)y'+a_3(x)y=0;
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \frac{d^2y_1}{dx^2}
+      =a_1y_1+b_1y_2+c_1y_3,\\[6pt]
+      \displaystyle \frac{d^2y_2}{dx^2}
+      =a_2y_1+b_2y_2+c_2y_3,\\[6pt]
+      \displaystyle \frac{d^2y_3}{dx^2}
+      =a_3y_1+b_3y_2+c_3y_3.
+    \end{cases}
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+引入原函数及其各阶导数为新未知函数，直到原方程的最高阶导数能用新未知量表示。
+\begin{enumerate}[label=(\arabic*)]
+\item 令 $u=y$、$v=dy/dx$，则
+\[
+\boxed{\begin{cases}u'=v,\\v'=-f(x)v-g(x).\end{cases}}
+\]
+反过来，由第一式 $v=u'$ 代入第二式，便恢复原方程。
+\item 按题意取 $m\ne0$，令 $u=x$、$v=dx/dt$，得到
+\[
+\boxed{\begin{cases}\dot u=v,\\\dot v=-\dfrac{k}{m}u-\dfrac{c}{m}v+\dfrac{f(t)}m.\end{cases}}
+\]
+若 $m=0$，原式已经退化为低阶方程，不适用这一除以 $m$ 的写法。
+\item 令 $u_1=y$、$u_2=y'$、$u_3=y''$，则
+\[
+\boxed{\begin{cases}u_1'=u_2,\\u_2'=u_3,\\
+u_3'=-a_3(x)u_1-a_2(x)u_2-a_1(x)u_3.\end{cases}}
+\]
+\item 保留 $y_1,y_2,y_3$，并令 $z_i=y_i'$（$i=1,2,3$），得到六维一阶组
+\[
+\boxed{\begin{cases}
+y_1'=z_1,\quad y_2'=z_2,\quad y_3'=z_3,\\
+z_1'=a_1y_1+b_1y_2+c_1y_3,\\
+z_2'=a_2y_1+b_2y_2+c_2y_3,\\
+z_3'=a_3y_1+b_3y_2+c_3y_3.
+\end{cases}}
+\]
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{3.1-2}
+将下列初值问题化为与之等价的一阶微分方程组：
+  \begin{enumerate}[label=(\arabic*)]
+    \item
+    \[
+    \begin{cases}
+      \displaystyle
+      e^{-t}\frac{d^4x}{dt^4}
+      -t^2\frac{d^2x}{dt^2}
+      +t^2e^t\frac{dx}{dt}
+      =3e^{-2t},\\[6pt]
+      x(0)=5,\quad x'(0)=3,\quad x''(0)=7,\quad x'''(0)=1;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      x''=-2x'-4y+3,\\
+      y'=x'+2y,\\
+      x(0)=x'(0)=0,\quad y(0)=1;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      x''+5y'-7x+6y=e^t,\\
+      y''+2y'-3y-7x=\cos t,\\
+      x(0)=x'(0)=1,\quad y(0)=0,\quad y'(0)=1.
+    \end{cases}
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+新变量的初值必须同时由原初值确定，才能得到等价的初值问题。
+\begin{enumerate}[label=(\arabic*)]
+\item 令 $u_0=x$、$u_1=x'$、$u_2=x''$、$u_3=x'''$。原方程乘以 $e^t$ 后，最高阶导数为
+$x^{(4)}=t^2e^tx''-t^2e^{2t}x'+3e^{-t}$，所以
+\[
+\boxed{\begin{cases}
+\dot u_0=u_1,\\\dot u_1=u_2,\\\dot u_2=u_3,\\
+\dot u_3=t^2e^tu_2-t^2e^{2t}u_1+3e^{-t},\\
+(u_0,u_1,u_2,u_3)(0)=(5,3,7,1).
+\end{cases}}
+\]
+四阶方程只需要四个新未知函数。
+\item 令 $u=x$、$v=x'$、$w=y$，则
+\[
+\boxed{\begin{cases}\dot u=v,\\\dot v=-2v-4w+3,\\
+\dot w=v+2w,\\(u,v,w)(0)=(0,0,1).\end{cases}}
+\]
+\item 令 $u=x$、$v=x'$、$w=y$、$z=y'$，得到
+\[
+\boxed{\begin{cases}\dot u=v,\\
+\dot v=7u-6w-5z+e^t,\\\dot w=z,\\
+\dot z=7u+3w-2z+\cos t,\\
+(u,v,w,z)(0)=(1,1,0,1).
+\end{cases}}
+\]
+\end{enumerate}
+每个一阶组的前几式都给出新变量与原导数的关系，因此可以逐步消去新变量，恢复原初值问题。
+\end{solution}
+
+\sect{3.2}
+\begin{problem}{3.2-1}
+求解方程组
+  \[
+  \begin{cases}
+    \displaystyle \frac{dx}{dt}=p(t)x+q(t)y,\\[5pt]
+    \displaystyle \frac{dy}{dt}=q(t)x+p(t)y,
+  \end{cases}
+  \]
+  其中 $p(t),q(t)$ 在 $[a,b]$ 上连续。
+\end{problem}
+
+\begin{solution}
+令 $u=x+y$、$v=x-y$。把两条方程相加、相减，分别得到
+\[
+u'=(p+q)u,\qquad v'=(p-q)v.
+\]
+固定 $t_0\in[a,b]$，记 $P(t)=\int_{t_0}^tp(s)\,ds$、$Q(t)=\int_{t_0}^tq(s)\,ds$。两个一阶齐次方程的通解为
+$u=C_1e^{P+Q}$、$v=C_2e^{P-Q}$。由 $x=(u+v)/2$、$y=(u-v)/2$，得到
+\[
+\boxed{\begin{aligned}
+x(t)&=\frac12\left(C_1e^{P(t)+Q(t)}+C_2e^{P(t)-Q(t)}\right),\\
+y(t)&=\frac12\left(C_1e^{P(t)+Q(t)}-C_2e^{P(t)-Q(t)}\right).
+\end{aligned}}
+\]
+这里同一个 $C_1$ 必须同时出现在 $x$、$y$ 的第一项，因为这一项来自同一个变量 $u=x+y$。
+\end{solution}
+
+\begin{problem}{3.2-2}
+用皮卡逐次逼近法求方程组
+  \[
+  \begin{cases}
+    \displaystyle \frac{dy_1}{dx}=y_2,\\[5pt]
+    \displaystyle \frac{dy_2}{dx}=-y_1,
+  \end{cases}
+  \]
+  满足
+  \[
+    y_1(0)=0,\qquad y_2(0)=1
+  \]
+  的第 $n$ 次近似解和精确解。
+\end{problem}
+
+\begin{solution}
+令 $\varphi_n=(u_n,v_n)^T$，取 $u_0=0$、$v_0=1$。初值问题的积分形式给出递推式
+\[
+u_{n+1}(x)=\int_0^xv_n(s)\,ds,\qquad
+v_{n+1}(x)=1-\int_0^xu_n(s)\,ds.
+\]
+前几次为 $\varphi_1=(x,1)^T$、$\varphi_2=(x,1-x^2/2)^T$、$\varphi_3=(x-x^3/6,1-x^2/2)^T$。由此归纳得到，当 $n=2m$ 时，
+\[
+\boxed{\begin{aligned}
+u_{2m}(x)&=\sum_{k=0}^{m-1}\frac{(-1)^kx^{2k+1}}{(2k+1)!},\\
+v_{2m}(x)&=\sum_{k=0}^{m}\frac{(-1)^kx^{2k}}{(2k)!};
+\end{aligned}}
+\]
+当 $n=2m+1$ 时，
+\[
+\boxed{\begin{aligned}
+u_{2m+1}(x)&=\sum_{k=0}^{m}\frac{(-1)^kx^{2k+1}}{(2k+1)!},\\
+v_{2m+1}(x)&=\sum_{k=0}^{m}\frac{(-1)^kx^{2k}}{(2k)!}.
+\end{aligned}}
+\]
+$m=0$ 时把第一式中的空和理解为 $0$。逐项积分即可由第 $n$ 次公式得到第 $n+1$ 次公式，故它们确为所求逼近序列。
+在任意有界区间上，上述幂级数分别一致收敛到 $\sin x$、$\cos x$，于是精确解为
+\[\boxed{y_1(x)=\sin x,\qquad y_2(x)=\cos x}.\]
+其导数和在 $0$ 处的值也直接满足原初值问题。
+\end{solution}
+
+\sect{3.3}
+\begin{problem}{3.3-1}
+设 $n\times n$ 矩阵函数 $A_1(t),A_2(t)$ 在 $(a,b)$ 内连续。
+  若方程组
+  \[
+    \frac{dX}{dt}=A_1(t)X
+    \qquad\text{与}\qquad
+    \frac{dX}{dt}=A_2(t)X
+  \]
+  有相同的基本解组，证明
+  \[
+    A_1(t)=A_2(t).
+  \]
+\end{problem}
+
+\begin{solution}
+把共同的基本解组作为列组成矩阵 $\Phi(t)$。它在每一点可逆，并同时满足
+\[
+\Phi'=A_1\Phi,\qquad\Phi'=A_2\Phi.
+\]
+相减得 $(A_1-A_2)\Phi=0$，再从右侧乘以 $\Phi^{-1}$，便得 $\boxed{A_1(t)=A_2(t)}$。
+\end{solution}
+
+\begin{problem}{3.3-2}
+求解下列方程组：
+  \begin{enumerate}[label=(\arabic*)]
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \frac{dx}{dt}=\lambda_1x,\\[5pt]
+      \displaystyle \frac{dy}{dt}=\lambda_2y;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \frac{dr}{dt}=-r(r^2-1),\\[5pt]
+      \displaystyle \frac{d\theta}{dt}=1;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \frac{dx}{dt}=\lambda x,\\[5pt]
+      \displaystyle \frac{dy}{dt}=x+\lambda y.
+    \end{cases}
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 两个方程互不耦合，分别积分得
+\[\boxed{x(t)=C_1e^{\lambda_1t},\qquad y(t)=C_2e^{\lambda_2t}}.\]
+\item 第二式直接给出 $\theta=t+C_2$。第一式先保留 $r\equiv0$。当 $r\ne0$ 时，令 $w=r^{-2}$，计算得
+$w'=-2r^{-3}r'=2-2w$。解此一阶线性方程可得 $w=1+Ce^{-2t}$，故
+\[
+\boxed{r(t)=\frac{\sigma}{\sqrt{1+Ce^{-2t}}},\quad \sigma\in\{1,-1\};
+\qquad\theta(t)=t+C_2.}
+\]
+解取在 $1+Ce^{-2t}>0$ 的区间内；$C=0$ 包含 $r\equiv\pm1$。若 $r$ 按极坐标半径解释，则只保留非负支及零解。
+\item 先由第一式得 $x=C_1e^{\lambda t}$，代入第二式后
+$(e^{-\lambda t}y)'=C_1$，积分得
+\[\boxed{x=C_1e^{\lambda t},\qquad y=(C_1t+C_2)e^{\lambda t}}.\]
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{3.3-3}
+证明：线性非齐次方程组 (3.7) 在初值
+  \[
+    Y(x_0)=Y_0
+  \]
+  下解的唯一性，与齐次方程组 (3.8) 在初值
+  \[
+    Y(x_0)=0
+  \]
+  下零解的唯一性等价。
+\end{problem}
+
+\begin{solution}
+记非齐次方程为 $Y'=A(x)Y+F(x)$，齐次方程为 $Z'=A(x)Z$。
+
+若齐次方程在 $Z(x_0)=0$ 下只有零解，那么任意两个满足同一初值 $Y(x_0)=Y_0$ 的非齐次解 $U,V$ 之差满足
+$(U-V)'=A(U-V)$、$(U-V)(x_0)=0$，故 $U=V$，非齐次解唯一。
+
+反过来，取一个满足 $Y(x_0)=Y_0$ 的非齐次解 $U$。若 $Z$ 是任意满足零初值的齐次解，则 $U+Z$ 仍满足原非齐次方程及同一初值。非齐次解的唯一性给出 $U+Z=U$，于是 $Z=0$。两个唯一性命题等价；所需解的存在性已由本章前面的定理保证。
+\end{solution}
+
+\begin{problem}{3.3-4}
+设 $\Phi(x)$ 和 $\Psi(x)$ 是线性齐次方程组
+  \[
+    \frac{dY}{dx}=A(x)Y
+  \]
+  的两个基本解矩阵。证明：存在常数非奇异矩阵 $M$，使得
+  \[
+    \Phi(x)=\Psi(x)M.
+  \]
+\end{problem}
+
+\begin{solution}
+令 $M(x)=\Psi^{-1}(x)\Phi(x)$。对恒等式 $\Psi^{-1}\Psi=I$ 求导，可得
+$(\Psi^{-1})'=-\Psi^{-1}\Psi'\Psi^{-1}=-\Psi^{-1}A$。因此
+\[
+M'=-\Psi^{-1}A\Phi+\Psi^{-1}\Phi'
+=-\Psi^{-1}A\Phi+\Psi^{-1}A\Phi=0.
+\]
+所以 $M(x)$ 是常矩阵，且 $M=\Psi^{-1}(x_0)\Phi(x_0)$ 是两个非奇异矩阵的乘积，因而非奇异。由定义即得 $\boxed{\Phi(x)=\Psi(x)M}$。
+\end{solution}
+
+\begin{problem}{3.3-5}
+向量函数组
+  \[
+    (1,0,0)^{T},\qquad (x,0,0)^{T},\qquad (x^2,0,0)^{T}
+  \]
+  是否线性相关？它们能否成为某个三维齐次线性微分方程组的基本解组？
+\end{problem}
+
+\begin{solution}
+这里的线性相关使用\emph{常数}系数。若
+\[
+c_1(1,0,0)^T+c_2(x,0,0)^T+c_3(x^2,0,0)^T\equiv0,
+\]
+则多项式 $c_1+c_2x+c_3x^2$ 在一个区间内恒为零，其所有系数为零。因此这三个向量函数\textbf{线性无关}。
+
+但把它们按列组成矩阵，只得到
+\[
+\begin{pmatrix}1&x&x^2\\0&0&0\\0&0&0\end{pmatrix},
+\]
+行列式在每一点都为零，而三维齐次线性方程组的基本解矩阵必须处处可逆，所以它们\textbf{不能成为基本解组}。这也说明，任意向量函数的线性无关，不等于它们在某一点的取值向量线性无关；对于连续系数的齐次线性方程组，线性无关的解在每一点的取值向量也线性无关。
+\end{solution}
+
+\begin{problem}{3.3-6}
+已知
+  \[
+    Y_1(x)=(\sin x,\cos x)^T,\qquad
+    Y_2(x)=(\cos x,-\sin x)^T
+  \]
+  是方程组
+  \[
+    Y'(x)=A(x)Y(x)
+  \]
+  的基本解组，求二阶方阵 $A(x)$。
+\end{problem}
+
+\begin{solution}
+按列组成
+\[
+\Phi=\begin{pmatrix}\sin x&\cos x\\\cos x&-\sin x\end{pmatrix},
+\qquad\Phi'=\begin{pmatrix}\cos x&-\sin x\\-\sin x&-\cos x\end{pmatrix}.
+\]
+计算有 $\Phi^2=I$，所以 $\Phi^{-1}=\Phi$。由 $\Phi'=A\Phi$ 得
+\[
+\boxed{A=\Phi'\Phi^{-1}=\begin{pmatrix}0&1\\-1&0\end{pmatrix}}.
+\]
+\end{solution}
+
+\begin{problem}{3.3-7}
+设 $A(x)$ 是以 $\omega$ 为周期的矩阵函数，
+  $\Phi(x)$ 是线性齐次方程组 (3.8) 的基本解矩阵。证明：
+  \begin{enumerate}[label=(\arabic*)]
+    \item 对整数 $k$，$\Phi(x+k\omega)$ 也是 (3.8) 的基本解矩阵；
+    \item 存在非奇异方阵 $P$，使得
+    \[
+      \Phi(x+k\omega)=\Phi(x)P^k\qquad(k\in\mathbb Z);
+    \]
+    \item 存在非奇异方阵 $M$，使得
+    \[
+      \Phi(x+\omega)=\Phi(x)M\Phi(\omega).
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 设 $\Phi_k(x)=\Phi(x+k\omega)$。由周期性，
+\[
+\Phi_k'(x)=A(x+k\omega)\Phi(x+k\omega)=A(x)\Phi_k(x).
+\]
+又 $\det\Phi_k(x)\ne0$，故它仍是基本解矩阵。
+\item 由第 4 题的基本解矩阵关系，存在常数非奇异矩阵 $P$ 使 $\Phi(x+\omega)=\Phi(x)P$。令 $x=0$ 可确定
+\[
+P=\Phi^{-1}(0)\Phi(\omega).
+\]
+连续应用一次平移公式得到正整数 $k$ 的公式。把 $x$ 换为 $x-\omega$ 得 $\Phi(x-\omega)=\Phi(x)P^{-1}$，再重复便得到负整数的公式，故
+\[\boxed{\Phi(x+k\omega)=\Phi(x)P^k\quad(k\in\mathbb Z)}.\]
+\item 由 $P=\Phi^{-1}(0)\Phi(\omega)$，取 $\boxed{M=\Phi^{-1}(0)}$ 即得 $\Phi(x+\omega)=\Phi(x)M\Phi(\omega)$。
+\end{enumerate}
+\note{整理版第 (2) 项只写了 $k=1$ 的情形；教材原题要求所有整数 $k$，这里按原题恢复。}
+\end{solution}
+
+\begin{problem}{3.3-8}
+设 $A(x)\equiv A$，$\Phi(x)$ 是线性齐次方程组 (3.8) 的基本解矩阵，
+  且 $\Phi(0)$ 为单位矩阵。证明
+  \[
+    \Phi(x_1)\Phi^{-1}(x_2)=\Phi(x_1-x_2).
+  \]
+\end{problem}
+
+\begin{solution}
+固定 $x_2$，把 $U(x)=\Phi(x)\Phi^{-1}(x_2)$、$V(x)=\Phi(x-x_2)$ 看成矩阵函数。由于系数矩阵 $A$ 为常数，两者都满足 $W'=AW$，且在 $x=x_2$ 时均等于 $I$。对各列应用初值解的唯一性，得到 $U(x)=V(x)$。再令 $x=x_1$，便有
+\[\boxed{\Phi(x_1)\Phi^{-1}(x_2)=\Phi(x_1-x_2)}.\]
+\end{solution}
+
+\sect{3.4}
+\begin{problem}{3.4-1}
+考虑线性非齐次方程组 (3.7)，其中
+  \[
+    A(x)=
+    \begin{pmatrix}
+      \cos^2x & \dfrac{\sin2x}{2}-1\\[6pt]
+      \dfrac{\sin2x}{2}+1 & \sin^2x
+    \end{pmatrix},
+    \qquad
+    F(x)=
+    \begin{pmatrix}
+      \cos x\\
+      \sin x
+    \end{pmatrix}.
+  \]
+  \begin{enumerate}[label=(\arabic*)]
+    \item 验证
+    \[
+      \Phi(x)=
+      \begin{pmatrix}
+        e^x\cos x & -\sin x\\
+        e^x\sin x & \cos x
+      \end{pmatrix}
+    \]
+    是 (3.7) 对应的线性齐次方程组 (3.8) 的基本解矩阵；
+
+    \item 求 (3.7) 满足
+    \[
+      Y(0)=(-1,2)^T
+    \]
+    的解。
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 记 $c=\cos x$、$s=\sin x$，则 $A=\begin{pmatrix}c^2&sc-1\\sc+1&s^2\end{pmatrix}$。
+对 $\Phi$ 的两列分别计算，可得
+\[
+\begin{aligned}
+A\begin{pmatrix}e^xc\\e^xs\end{pmatrix}
+&=e^x\begin{pmatrix}c-s\\s+c\end{pmatrix}
+=\frac{d}{dx}\begin{pmatrix}e^xc\\e^xs\end{pmatrix},\\[4pt]
+A\begin{pmatrix}-s\\c\end{pmatrix}
+&=\begin{pmatrix}-c\\-s\end{pmatrix}
+=\frac{d}{dx}\begin{pmatrix}-s\\c\end{pmatrix}.
+\end{aligned}
+\]
+因 $\det\Phi=e^x(c^2+s^2)=e^x\ne0$，$\Phi$ 确为基本解矩阵。
+\item 令 $Y=\Phi C(x)$。代入并消去 $\Phi'=A\Phi$ 后，得到
+\[
+C'=\Phi^{-1}F,\qquad
+\Phi^{-1}=\begin{pmatrix}e^{-x}\cos x&e^{-x}\sin x\\-\sin x&\cos x\end{pmatrix}.
+\]
+所以 $C'=(e^{-x},0)^T$。又 $\Phi(0)=I$，故 $C(0)=(-1,2)^T$。积分得
+$C(x)=(-e^{-x},2)^T$，从而
+\[
+\boxed{Y(x)=\begin{pmatrix}-\cos x-2\sin x\\2\cos x-\sin x\end{pmatrix}}.
+\]
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{3.4-2}
+证明线性非齐次方程组 (3.7) 至多有 $n+1$ 个线性无关解。
+  并讨论 (3.7) 的全部解是否构成 $n+1$ 维线性空间。
+\end{problem}
+
+\begin{solution}
+设 $V$ 是对应齐次方程的解空间，其维数为 $n$；固定一个非齐次特解 $Y_p$。本节的通解结构给出
+\[
+\mathcal S=\{Y_p+Z:Z\in V\},
+\]
+其中 $\mathcal S$ 是全部非齐次解的集合。因此所有非齐次解都在向量空间 $V+\operatorname{span}\{Y_p\}$ 中，其维数至多 $n+1$。这就证明不能有多于 $n+1$ 个线性无关解。
+
+若 $F\not\equiv0$，则 $Y_p\notin V$，所以上述线性张成空间恰为 $n+1$ 维。事实上，取齐次基本解组 $Z_1,\ldots,Z_n$，解
+$Y_p,Y_p+Z_1,\ldots,Y_p+Z_n$ 线性无关：将它们的一次线性组合写成 $cY_p+\sum c_iZ_i=0$，应用算子 $L(Y)=Y'-AY$ 得 $cF=0$，所以 $c=0$；再由齐次基本解组的独立性得各 $c_i=0$。
+
+但是 $\mathcal S$ 本身\textbf{不是线性空间}，因为零函数不是非齐次方程的解；两解之和的右端强迫项也变成 $2F$。它只是一个 $n$ 维解空间的平移。若 $F\equiv0$，方程实际为齐次，此时 $\mathcal S=V$ 是 $n$ 维线性空间，也不是 $n+1$ 维。
+\end{solution}
+
+\begin{problem}{3.4-3}
+设
+  \[
+    Y_1(x),Y_2(x),\ldots,Y_{n+1}(x)
+  \]
+  是线性非齐次方程组 (3.7) 的 $n+1$ 个线性无关解。
+  证明：任一解 $Y(x)$ 可表示为
+  \[
+    Y(x)=\sum_{i=1}^{n+1}c_iY_i(x),
+  \]
+  其中 $c_1,c_2,\ldots,c_{n+1}$ 为常数，并满足
+  \[
+    \sum_{i=1}^{n+1}c_i=1.
+  \]
+  反之，任取满足上式条件的常数 $c_i$，上述线性组合仍是 (3.7) 的解。
+\end{problem}
+
+\begin{solution}
+令 $Z_i=Y_i-Y_{n+1}$（$i=1,\ldots,n$）。两非齐次解之差是齐次解。若
+$\sum_{i=1}^na_iZ_i=0$，则
+\[
+\sum_{i=1}^na_iY_i-\left(\sum_{i=1}^na_i\right)Y_{n+1}=0.
+\]
+由 $Y_1,\ldots,Y_{n+1}$ 的线性无关性，各 $a_i=0$，故 $Z_1,\ldots,Z_n$ 是齐次基本解组。
+对任意非齐次解 $Y$，$Y-Y_{n+1}$ 为齐次解，所以
+\[
+Y-Y_{n+1}=\sum_{i=1}^nc_i(Y_i-Y_{n+1}).
+\]
+取 $c_{n+1}=1-\sum_{i=1}^nc_i$，即得到题中的表示及系数和为 $1$ 的条件。
+
+反过来，若 $\sum c_i=1$，则
+\[
+\left(\sum c_iY_i\right)'
+=A\sum c_iY_i+\left(\sum c_i\right)F
+=A\sum c_iY_i+F,
+\]
+所以该线性组合仍是非齐次解。
+\end{solution}
+
+\begin{problem}{3.4-4}
+设 $\Phi(x)$ 是线性齐次方程组 (3.8) 的一个基本解矩阵，
+  $n$ 维向量函数 $f(x,Y)$ 在区域
+  \[
+    \{(x,Y)\mid a<x<b,\ |Y|<+\infty\}
+  \]
+  内连续。证明初值问题
+  \[
+  \begin{cases}
+    \displaystyle \frac{dY}{dx}=A(x)Y+f(x,Y),\\[5pt]
+    Y(x_0)=Y_0,\qquad x\in(a,b)
+  \end{cases}
+  \]
+  与积分方程
+  \[
+    Y(x)=\Phi(x)\Phi^{-1}(x_0)Y_0
+    +\int_{x_0}^{x}
+    \Phi(x)\Phi^{-1}(s)f(s,Y(s))\,ds,
+    \qquad x_0,x\in(a,b)
+  \]
+  等价。
+\end{problem}
+
+\begin{solution}
+先设 $Y$ 满足微分方程及初值，令 $C(x)=\Phi^{-1}(x)Y(x)$。利用
+$(\Phi^{-1})'=-\Phi^{-1}A$，有
+\[
+C'=-\Phi^{-1}AY+\Phi^{-1}(AY+f(x,Y))
+=\Phi^{-1}(x)f(x,Y(x)).
+\]
+从 $x_0$ 积分到 $x$，并代入 $C(x_0)=\Phi^{-1}(x_0)Y_0$，再左乘 $\Phi(x)$，就得到题中的积分方程。
+
+反过来，设连续函数 $Y$ 满足该积分方程。左乘 $\Phi^{-1}(x)$ 得
+\[
+\Phi^{-1}(x)Y(x)=\Phi^{-1}(x_0)Y_0+
+\int_{x_0}^x\Phi^{-1}(s)f(s,Y(s))\,ds.
+\]
+因被积函数连续，右侧可微，故 $Y$ 也可微；求导并乘回 $\Phi$ 得 $Y'=AY+f(x,Y)$。令 $x=x_0$，还得到 $Y(x_0)=Y_0$，从而两种表述等价。
+\note{等价关系在解实际存在的区间内成立。仅有 $f$ 连续，并不自动保证唯一性，也不自动保证解延伸到整个 $(a,b)$。}
+\end{solution}
+
+\begin{problem}{3.4-5}
+设在线性非齐次方程组 (3.7) 中，
+  $A(x),F(x)$ 都是以 $\omega$ 为周期的连续函数，
+  $\Phi(x)$ 是其对应齐次方程组 (3.8) 的基本解矩阵，
+  且 $\Phi(0)$ 为单位矩阵。
+  证明：(3.7) 的解 $\varphi(x)$ 是以 $\omega$ 为周期的周期解，
+  当且仅当
+  \[
+    \varphi(0)=\varphi(\omega).
+  \]
+\end{problem}
+
+\begin{solution}
+若 $\varphi$ 以 $\omega$ 为周期，代入 $x=0$ 立即得到 $\varphi(0)=\varphi(\omega)$。
+
+反过来，设这两个值相等，并令 $\psi(x)=\varphi(x+\omega)$。利用 $A,F$ 的周期性，
+\[
+\psi'(x)=A(x+\omega)\varphi(x+\omega)+F(x+\omega)
+=A(x)\psi(x)+F(x).
+\]
+同时 $\psi(0)=\varphi(\omega)=\varphi(0)$。线性方程组的初值解唯一，故 $\psi(x)=\varphi(x)$，即 $\boxed{\varphi(x+\omega)=\varphi(x)}$。
+\end{solution}
+
+\sect{3.5}
+\begin{problem}{3.5-1}
+求解下列方程组：
+  \begin{enumerate}[label=(\arabic*)]
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \frac{dx}{dt}=x,\\[5pt]
+      \displaystyle \frac{dy}{dt}=2y;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \frac{dy}{dx}=5y+4z,\\[5pt]
+      \displaystyle \frac{dz}{dx}=4y+5z;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \frac{dx}{dt}=\alpha x+\beta y,\\[5pt]
+      \displaystyle \frac{dy}{dt}=-\beta x+\alpha y.
+    \end{cases}
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 两个方程互不耦合，分别积分即得
+\[
+\boxed{x=C_1\e^t,\qquad y=C_2\e^{2t}.}
+\]
+这里及以下各题中的 $C_j$ 均为任意实常数。
+
+\item 令 $u=y+z$、$v=y-z$，将两式相加、相减，得到
+\[
+u'=9u,\qquad v'=v.
+\]
+因此 $u=K_1\e^{9x}$、$v=K_2\e^x$。由
+$y=(u+v)/2$、$z=(u-v)/2$，重新记任意常数后得
+\[
+\boxed{
+\begin{pmatrix}y\\z\end{pmatrix}
+=C_1\e^x\begin{pmatrix}1\\-1\end{pmatrix}
++C_2\e^{9x}\begin{pmatrix}1\\1\end{pmatrix}.}
+\]
+这也对应系数矩阵的两个特征值 $1,9$ 及其特征向量。
+
+\item 先令 $u=\e^{-\alpha t}x$、$v=\e^{-\alpha t}y$，以消去对角项：
+\[
+u'=\beta v,\qquad v'=-\beta u.
+\]
+再令
+\[
+a=u\cos(\beta t)-v\sin(\beta t),\qquad
+b=u\sin(\beta t)+v\cos(\beta t).
+\]
+利用上面的微分方程求导，可得 $a'=b'=0$。故 $a=C_1$、$b=C_2$，解出 $u,v$ 后得到
+\[
+\boxed{
+\begin{aligned}
+x&=\e^{\alpha t}\bigl(C_1\cos(\beta t)+C_2\sin(\beta t)\bigr),\\
+y&=\e^{\alpha t}\bigl(-C_1\sin(\beta t)+C_2\cos(\beta t)\bigr).
+\end{aligned}}
+\]
+变换的行列式为 $1$，所以没有遗漏解；当 $\beta=0$ 时，这一公式仍然适用。
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{3.5-2}
+求解下列方程组：
+  \begin{enumerate}[label=(\arabic*)]
+    \item
+    \[
+    \begin{cases}
+      \dot x=2x+y,\\
+      \dot y=3x+4y;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \dot x=x+y,\\
+      \dot y=3y-2x;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \dot x=x-2y-z,\\
+      \dot y=y-x+z,\\
+      \dot z=x-z;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \dot x=2x-y+z,\\
+      \dot y=x+2y-z,\\
+      \dot z=x-y+2z.
+    \end{cases}
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+对常系数齐次方程组 $Y'=AY$，代入 $Y=\e^{\lambda t}v$，得到
+\[
+Av=\lambda v.
+\]
+因而可由特征值和特征向量构造解。实矩阵出现非实特征值时，将相应复解的实部和虚部分开，就得到实解。
+
+\begin{enumerate}[label=(\arabic*)]
+\item 系数矩阵及其特征多项式为
+\[
+A=\begin{pmatrix}2&1\\3&4\end{pmatrix},\qquad
+\det(\lambda I-A)=(\lambda-2)(\lambda-4)-3
+=(\lambda-1)(\lambda-5).
+\]
+由第一行特征方程 $(2-\lambda)a+b=0$，分别选取
+\[
+\lambda=1:\ v_1=\begin{pmatrix}1\\-1\end{pmatrix},\qquad
+\lambda=5:\ v_2=\begin{pmatrix}1\\3\end{pmatrix}.
+\]
+两个特征向量线性无关，故通解为
+\[
+\boxed{
+\begin{pmatrix}x\\y\end{pmatrix}
+=C_1\e^t\begin{pmatrix}1\\-1\end{pmatrix}
++C_2\e^{5t}\begin{pmatrix}1\\3\end{pmatrix}.}
+\]
+
+\item 此时
+\[
+A=\begin{pmatrix}1&1\\-2&3\end{pmatrix},\qquad
+\det(\lambda I-A)=(\lambda-1)(\lambda-3)+2
+=\lambda^2-4\lambda+5.
+\]
+特征值为 $2\pm\mathrm i$。对于 $\lambda=2+\mathrm i$，第一行给出
+$b=(1+\mathrm i)a$，可取 $v=(1,1+\mathrm i)^{\mathsf T}$。
+复解的实部和虚部分别为
+\[
+\begin{aligned}
+\Re\bigl(\e^{(2+\mathrm i)t}v\bigr)
+&=\e^{2t}\begin{pmatrix}\cos t\\\cos t-\sin t\end{pmatrix},\\[4pt]
+\Im\bigl(\e^{(2+\mathrm i)t}v\bigr)
+&=\e^{2t}\begin{pmatrix}\sin t\\\sin t+\cos t\end{pmatrix}.
+\end{aligned}
+\]
+它们在 $t=0$ 的取值为 $(1,1)^{\mathsf T}$ 与 $(0,1)^{\mathsf T}$，线性无关。因此
+\[
+\boxed{
+\begin{aligned}
+x&=\e^{2t}(C_1\cos t+C_2\sin t),\\
+y&=\e^{2t}\bigl[C_1(\cos t-\sin t)+C_2(\sin t+\cos t)\bigr].
+\end{aligned}}
+\]
+
+\item 写成 $Y'=AY$，其中
+\[
+A=\begin{pmatrix}1&-2&-1\\-1&1&1\\1&0&-1\end{pmatrix}.
+\]
+沿第三行展开特征行列式，得
+\[
+\begin{aligned}
+\det(\lambda I-A)
+&=-(\lambda+1)+(\lambda+1)(\lambda-1)^2\\
+&=\lambda(\lambda-2)(\lambda+1).
+\end{aligned}
+\]
+解 $(A-\lambda I)v=0$：
+\[
+\begin{array}{c|c|c}
+\lambda&\text{分量间的关系}&\text{选取的特征向量}\\ \hline
+0&a=c,\ b=0&(1,0,1)^{\mathsf T}\\
+2&a=3c,\ b=-2c&(3,-2,1)^{\mathsf T}\\
+-1&a=0,\ c=-2b&(0,1,-2)^{\mathsf T}
+\end{array}
+\]
+不同特征值的特征向量线性无关，故
+\[
+\boxed{
+\begin{pmatrix}x\\y\\z\end{pmatrix}
+=C_1\begin{pmatrix}1\\0\\1\end{pmatrix}
++C_2\e^{2t}\begin{pmatrix}3\\-2\\1\end{pmatrix}
++C_3\e^{-t}\begin{pmatrix}0\\1\\-2\end{pmatrix}.}
+\]
+
+\item 系数矩阵为
+\[
+A=\begin{pmatrix}2&-1&1\\1&2&-1\\1&-1&2\end{pmatrix}.
+\]
+令 $r=\lambda-2$，则
+\[
+\det(\lambda I-A)
+=\det\begin{pmatrix}r&1&-1\\-1&r&1\\-1&1&r\end{pmatrix}
+=r(r^2-1)
+=(\lambda-1)(\lambda-2)(\lambda-3).
+\]
+分别解特征方程，可取
+\[
+\begin{array}{c|ccc}
+\lambda&1&2&3\\ \hline
+v&(0,1,1)^{\mathsf T}&(1,1,1)^{\mathsf T}&(1,0,1)^{\mathsf T}
+\end{array}
+\]
+例如 $\lambda=1$ 时，第一、二行相加得到 $a=0$，再由第二行得 $b=c$；其余两种情形依次得到 $a=b=c$ 和 $b=0,a=c$。
+因此通解为
+\[
+\boxed{
+\begin{pmatrix}x\\y\\z\end{pmatrix}
+=C_1\e^t\begin{pmatrix}0\\1\\1\end{pmatrix}
++C_2\e^{2t}\begin{pmatrix}1\\1\\1\end{pmatrix}
++C_3\e^{3t}\begin{pmatrix}1\\0\\1\end{pmatrix}.}
+\]
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{3.5-3}
+求解下列方程组：
+  \begin{enumerate}[label=(\arabic*)]
+    \item
+    \[
+    \begin{cases}
+      2\dot x-5\dot y=4y-x,\\
+      3\dot x-4\dot y=2x-y;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \ddot x=2y,\\
+      \ddot y=-2x.
+    \end{cases}
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 先把导数项的系数矩阵化为单位矩阵。令 $Y=(x,y)^{\mathsf T}$，则
+\[
+\begin{pmatrix}2&-5\\3&-4\end{pmatrix}Y'
+=\begin{pmatrix}-1&4\\2&-1\end{pmatrix}Y.
+\]
+左边矩阵的行列式为 $7\ne0$，所以
+\[
+Y'=AY,\qquad
+A=\frac17\begin{pmatrix}-4&5\\-3&2\end{pmatrix}
+\begin{pmatrix}-1&4\\2&-1\end{pmatrix}
+=\begin{pmatrix}2&-3\\1&-2\end{pmatrix}.
+\]
+特征多项式为
+\[
+\det(\lambda I-A)=(\lambda-2)(\lambda+2)+3
+=\lambda^2-1.
+\]
+$\lambda=1$ 时特征方程给出 $a=3b$，$\lambda=-1$ 时给出 $a=b$。因此
+\[
+\boxed{
+\begin{pmatrix}x\\y\end{pmatrix}
+=C_1\e^t\begin{pmatrix}3\\1\end{pmatrix}
++C_2\e^{-t}\begin{pmatrix}1\\1\end{pmatrix}.}
+\]
+
+\item 引进 $p=\dot x$、$q=\dot y$，先化成一阶方程组
+\[
+\frac{\dd}{\dd t}\begin{pmatrix}x\\y\\p\\q\end{pmatrix}
+=\begin{pmatrix}
+0&0&1&0\\0&0&0&1\\0&2&0&0\\-2&0&0&0
+\end{pmatrix}
+\begin{pmatrix}x\\y\\p\\q\end{pmatrix}.
+\]
+设 $x=a\e^{\lambda t}$、$y=b\e^{\lambda t}$。代入原方程得
+\[
+\lambda^2a=2b,\qquad \lambda^2b=-2a.
+\]
+非零特征向量须满足 $\lambda^4+4=0$。将其分解为
+\[
+\lambda^4+4=(\lambda^2-2\lambda+2)(\lambda^2+2\lambda+2),
+\]
+得四个特征值
+\[
+\lambda=1\pm\mathrm i,\qquad \lambda=-1\pm\mathrm i.
+\]
+当 $\lambda=1+\mathrm i$ 时可取 $(a,b)=(1,\mathrm i)$；
+当 $\lambda=-1+\mathrm i$ 时可取 $(a,b)=(1,-\mathrm i)$。
+对这两个复解分别取实部、虚部，得到
+\[
+\boxed{
+\begin{aligned}
+x={}&\e^t(C_1\cos t+C_2\sin t)
++\e^{-t}(C_3\cos t+C_4\sin t),\\
+y={}&\e^t(-C_1\sin t+C_2\cos t)
++\e^{-t}(C_3\sin t-C_4\cos t).
+\end{aligned}}
+\]
+上述一阶组有四个不同的复特征值，其特征向量可写为
+$(a,b,\lambda a,\lambda b)^{\mathsf T}$，构成复数域上的一组基。
+将共轭的两两配对，取实部与虚部，得到四个线性无关的实解，故这里包含全部解。
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{3.5-4}
+求解下列方程组：
+  \begin{enumerate}[label=(\arabic*)]
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \frac{dx}{dt}=3x+y,\\[5pt]
+      \displaystyle \frac{dy}{dt}=3y;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \frac{dy_1}{dx}=2y_1+y_2,\\[5pt]
+      \displaystyle \frac{dy_2}{dx}=2y_2,\\[5pt]
+      \displaystyle \frac{dy_3}{dx}=2y_3;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \frac{dy_1}{dx}=2y_1+y_2,\\[5pt]
+      \displaystyle \frac{dy_2}{dx}=2y_2+y_3,\\[5pt]
+      \displaystyle \frac{dy_3}{dx}=2y_3;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \frac{dx}{dt}=-x+y+z,\\[5pt]
+      \displaystyle \frac{dy}{dt}=x-y+z,\\[5pt]
+      \displaystyle \frac{dz}{dt}=x+y-z.
+    \end{cases}
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 先由第二式得到 $y=C_2\e^{3t}$。代入第一式，有
+\[
+x'-3x=C_2\e^{3t},\qquad
+(\e^{-3t}x)'=C_2.
+\]
+积分后得
+\[
+\boxed{x=\e^{3t}(C_1+C_2t),\qquad y=C_2\e^{3t}.}
+\]
+
+\item 第二、三式分别给出
+\[
+y_2=C_2\e^{2x},\qquad y_3=C_3\e^{2x}.
+\]
+第一式于是化为 $(\e^{-2x}y_1)'=C_2$，故
+\[
+\boxed{
+y_1=\e^{2x}(C_1+C_2x),\qquad
+y_2=C_2\e^{2x},\qquad y_3=C_3\e^{2x}.}
+\]
+
+\item 从最后一个方程向前依次求解。先有 $y_3=C_3\e^{2x}$，再有
+\[
+(\e^{-2x}y_2)'=C_3,\qquad
+y_2=\e^{2x}(C_2+C_3x).
+\]
+最后
+\[
+(\e^{-2x}y_1)'=C_2+C_3x.
+\]
+所以
+\[
+\boxed{
+\begin{aligned}
+y_1&=\e^{2x}\left(C_1+C_2x+\frac{C_3x^2}{2}\right),\\
+y_2&=\e^{2x}(C_2+C_3x),\qquad y_3=C_3\e^{2x}.
+\end{aligned}}
+\]
+\note{这三个方程的系数矩阵只有特征值 $2$，但只有一个线性无关的特征向量。
+上面的逐次积分自然产生了 $x\e^{2x}$、$x^2\e^{2x}$ 等项，不能仅将通解写成常向量乘 $\e^{2x}$。}
+
+\item 系数矩阵可以写成 $A=J-2I$，其中 $J$ 是所有元素均为 $1$ 的三阶矩阵。
+对于 $v=(a,b,c)^{\mathsf T}$，有
+\[
+Jv=(a+b+c)\begin{pmatrix}1\\1\\1\end{pmatrix}.
+\]
+因此 $v_1=(1,1,1)^{\mathsf T}$ 满足 $Av_1=v_1$；
+而分量和为 $0$ 的向量满足 $Av=-2v$。在后一平面中选取
+\[
+v_2=(1,-1,0)^{\mathsf T},\qquad v_3=(0,1,-1)^{\mathsf T}.
+\]
+$v_2,v_3$ 线性无关，且 $v_1$ 不在这个平面中，所以三个向量构成一组基。于是
+\[
+\boxed{
+\begin{pmatrix}x\\y\\z\end{pmatrix}
+=C_1\e^t\begin{pmatrix}1\\1\\1\end{pmatrix}
++C_2\e^{-2t}\begin{pmatrix}1\\-1\\0\end{pmatrix}
++C_3\e^{-2t}\begin{pmatrix}0\\1\\-1\end{pmatrix}.}
+\]
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{3.5-5}
+求下列各方程组的通解：
+  \begin{enumerate}[label=(\arabic*)]
+    \item
+    \[
+    \begin{cases}
+      \dot x=y+2e^t,\\
+      \dot y=x+t^2;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \dot x=2y-x+1,\\
+      \dot y=3y-2x;
+    \end{cases}
+    \]
+
+    \item
+    \[
+    \begin{cases}
+      \displaystyle \dot x=-4x-2y+\frac{2}{e^t-1},\\[8pt]
+      \displaystyle \dot y=6x+3y-\frac{3}{e^t-1}.
+    \end{cases}
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 令 $u=x+y$、$v=x-y$。相加、相减得
+\[
+u'-u=2\e^t+t^2,\qquad v'+v=2\e^t-t^2.
+\]
+分别使用积分因子 $\e^{-t}$ 与 $\e^t$：
+\[
+(\e^{-t}u)'=2+t^2\e^{-t},\qquad
+(\e^t v)'=2\e^{2t}-t^2\e^t.
+\]
+所需积分为
+\[
+\begin{aligned}
+\int t^2\e^{-t}\dd t&=-\e^{-t}(t^2+2t+2),\\
+\int t^2\e^t\dd t&=\e^t(t^2-2t+2),
+\end{aligned}
+\]
+其中积分常数另行并入通解。因而
+\[
+\begin{aligned}
+u&=K_1\e^t+2t\e^t-t^2-2t-2,\\
+v&=K_2\e^{-t}+\e^t-t^2+2t-2.
+\end{aligned}
+\]
+由 $x=(u+v)/2$、$y=(u-v)/2$，重新记常数后得
+\[
+\boxed{
+\begin{aligned}
+x&=C_1\e^t+C_2\e^{-t}+t\e^t+\tfrac12\e^t-t^2-2,\\
+y&=C_1\e^t-C_2\e^{-t}+t\e^t-\tfrac12\e^t-2t.
+\end{aligned}}
+\]
+
+\item 先寻找常数特解。令导数为零，解
+\[
+2y-x+1=0,\qquad 3y-2x=0,
+\]
+得 $x=-3,y=-2$。令 $u=x+3,v=y+2$，得到齐次组
+\[
+u'=-u+2v,\qquad v'=-2u+3v.
+\]
+为处理其重特征值，令 $w=v-u$，则
+\[
+w'=v'-u'=v-u=w,\qquad u'-u=2w.
+\]
+所以 $w=C_2\e^t$，再由 $(\e^{-t}u)'=2C_2$ 得
+\[
+u=\e^t(C_1+2C_2t),\qquad
+v=u+w=\e^t\bigl(C_1+(2t+1)C_2\bigr).
+\]
+还原变量，得
+\[
+\boxed{
+\begin{aligned}
+x&=\e^t(C_1+2C_2t)-3,\\
+y&=\e^t\bigl(C_1+(2t+1)C_2\bigr)-2.
+\end{aligned}}
+\]
+
+\item 写成
+\[
+Y'=AY+\frac1{\e^t-1}\begin{pmatrix}2\\-3\end{pmatrix},\qquad
+A=\begin{pmatrix}-4&-2\\6&3\end{pmatrix}.
+\]
+有
+\[
+\det(\lambda I-A)=\lambda(\lambda+1),\qquad
+Av_0=0,\quad Av_1=-v_1,
+\]
+其中 $v_0=(1,-2)^{\mathsf T}$、$v_1=(2,-3)^{\mathsf T}$。
+由于 $\det(v_0,v_1)=1$，可唯一地写成 $Y=uv_0+vv_1$。代入方程并比较基向量的系数，得
+\[
+u'=0,\qquad v'+v=\frac1{\e^t-1}.
+\]
+第一式给出 $u=C_1$。第二式乘以 $\e^t$ 后积分：
+\[
+(\e^t v)'=\frac{\e^t}{\e^t-1},\qquad
+v=\e^{-t}\bigl(C_2+\ln|\e^t-1|\bigr).
+\]
+故通解为
+\[
+\boxed{
+\begin{aligned}
+x&=C_1+2\e^{-t}\bigl(C_2+\ln|\e^t-1|\bigr),\\
+y&=-2C_1-3\e^{-t}\bigl(C_2+\ln|\e^t-1|\bigr).
+\end{aligned}}
+\]
+原方程在 $t=0$ 无定义，解应分别取在 $(-\infty,0)$ 或 $(0,+\infty)$ 上；两侧的积分常数可以各自选取。
+\end{enumerate}
+\end{solution}
+
+\sect{3.6}
+\begin{problem}{3.6-1}
+证明：当且仅当
+  \[
+    BA=AB
+  \]
+  时，
+  \[
+    Be^{At}=e^{At}B.
+  \]
+\end{problem}
+
+\begin{solution}
+这里将题目中的等式理解为对所有实数 $t$ 成立。
+
+\textbf{充分性。} 若 $BA=AB$，由归纳法得 $BA^k=A^kB$，$k=0,1,2,\ldots$。
+利用矩阵指数级数的收敛性，可得
+\[
+B\e^{At}
+=\sum_{k=0}^{\infty}\frac{t^k}{k!}BA^k
+=\sum_{k=0}^{\infty}\frac{t^k}{k!}A^kB
+=\e^{At}B.
+\]
+
+\textbf{必要性。} 若 $B\e^{At}=\e^{At}B$ 对所有 $t$ 成立，则两边对 $t$ 求导，并在 $t=0$ 取值：
+\[
+B A\e^{A\cdot0}=A\e^{A\cdot0}B.
+\]
+由于 $\e^{A\cdot0}=I$，得到 $BA=AB$。
+
+\note{若只要求等式在某一个 $t$ 成立，则必要性不成立。例如 $t=0$ 时等式对任意 $A,B$ 都成立。
+因此本题须作为关于 $t$ 的恒等式理解。}
+\end{solution}
+
+\begin{problem}{3.6-2}
+证明：当且仅当
+  \[
+    BA=AB
+  \]
+  时，对所有 $t$ 有
+  \[
+    e^{At}e^{Bt}=e^{(A+B)t}.
+  \]
+\end{problem}
+
+\begin{solution}
+\textbf{充分性。} 设 $AB=BA$。由上一题，$\e^{At}B=B\e^{At}$。
+令
+\[
+U(t)=\e^{At}\e^{Bt}.
+\]
+用乘积求导法则得
+\[
+\begin{aligned}
+U'(t)
+&=A\e^{At}\e^{Bt}+\e^{At}B\e^{Bt}\\
+&=(A+B)U(t),\qquad U(0)=I.
+\end{aligned}
+\]
+另一方面，$V(t)=\e^{(A+B)t}$ 也满足 $V'=(A+B)V$、$V(0)=I$。
+逐列应用初值问题的唯一性，得到 $U(t)=V(t)$，即
+\[
+\boxed{\e^{At}\e^{Bt}=\e^{(A+B)t}.}
+\]
+
+\textbf{必要性。} 假设上式对所有 $t$ 成立。两边求两次导数，在 $t=0$ 比较：
+\[
+\left.\frac{\dd^2}{\dd t^2}\bigl(\e^{At}\e^{Bt}\bigr)\right|_{t=0}
+=A^2+2AB+B^2,
+\]
+而
+\[
+\left.\frac{\dd^2}{\dd t^2}\e^{(A+B)t}\right|_{t=0}
+=(A+B)^2=A^2+AB+BA+B^2.
+\]
+两式相等，消去相同项，得到 $AB=BA$。
+\end{solution}
+
+\begin{problem}{3.6-3}
+计算下列矩阵的指数矩阵：
+  \begin{enumerate}[label=(\arabic*)]
+    \item
+    \[
+      A=
+      \begin{pmatrix}
+        0 & 1\\
+        -1 & 0
+      \end{pmatrix};
+    \]
+
+    \item
+    \[
+      A=
+      \begin{pmatrix}
+        2 & -1\\
+        1 & 2
+      \end{pmatrix};
+    \]
+
+    \item
+    \[
+      A=
+      \begin{pmatrix}
+        2 & 0 & 0\\
+        0 & 3 & 0\\
+        0 & 1 & 3
+      \end{pmatrix}.
+    \]
+  \end{enumerate}
+\end{problem}
+
+\begin{solution}
+先求 $\e^{At}$，再取 $t=1$，便得到题目要求的指数矩阵 $\e^A$。
+
+\begin{enumerate}[label=(\arabic*)]
+\item 直接相乘得 $A^2=-I$，从而
+\[
+A^{2k}=(-1)^kI,\qquad A^{2k+1}=(-1)^kA.
+\]
+将指数级数按偶数次、奇数次分开：
+\[
+\begin{aligned}
+\e^{At}
+&=I\sum_{k=0}^{\infty}\frac{(-1)^kt^{2k}}{(2k)!}
++A\sum_{k=0}^{\infty}\frac{(-1)^kt^{2k+1}}{(2k+1)!}\\
+&=I\cos t+A\sin t
+=\begin{pmatrix}\cos t&\sin t\\-\sin t&\cos t\end{pmatrix}.
+\end{aligned}
+\]
+因此
+\[
+\boxed{\e^A=\begin{pmatrix}\cos1&\sin1\\-\sin1&\cos1\end{pmatrix}.}
+\]
+
+\item 将矩阵分解为
+\[
+A=2I+K,\qquad K=\begin{pmatrix}0&-1\\1&0\end{pmatrix}.
+\]
+由于 $2I$ 与 $K$ 可交换，且 $K^2=-I$，利用上一题及（1）的计算，有
+\[
+\e^{At}=\e^{2t}\e^{Kt}
+=\e^{2t}(I\cos t+K\sin t)
+=\e^{2t}\begin{pmatrix}\cos t&-\sin t\\\sin t&\cos t\end{pmatrix}.
+\]
+所以
+\[
+\boxed{\e^A=\e^2\begin{pmatrix}\cos1&-\sin1\\\sin1&\cos1\end{pmatrix}.}
+\]
+
+\item 令
+\[
+D=\begin{pmatrix}2&0&0\\0&3&0\\0&0&3\end{pmatrix},\qquad
+N=\begin{pmatrix}0&0&0\\0&0&0\\0&1&0\end{pmatrix},
+\]
+则 $A=D+N$。直接相乘可得 $DN=ND=3N$、$N^2=0$，故
+\[
+\begin{aligned}
+\e^{At}&=\e^{Dt}\e^{Nt}
+=\begin{pmatrix}\e^{2t}&0&0\\0&\e^{3t}&0\\0&0&\e^{3t}\end{pmatrix}(I+tN)\\[4pt]
+&=\begin{pmatrix}\e^{2t}&0&0\\0&\e^{3t}&0\\0&t\e^{3t}&\e^{3t}\end{pmatrix}.
+\end{aligned}
+\]
+取 $t=1$ 得
+\[
+\boxed{\e^A=\begin{pmatrix}\e^2&0&0\\0&\e^3&0\\0&\e^3&\e^3\end{pmatrix}.}
+\]
+\note{配套参考书此处将第二行第二列印成了 $\e^2$。这一位置来自对角元 $3$，应为 $\e^3$。}
+\end{enumerate}
+\end{solution}
+
+\end{document}

@@ -1,0 +1,619 @@
+% !TEX program = xelatex
+% 本文件为第六章独立解答，建议使用 XeLaTeX 编译。
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+\usepackage[a4paper,margin=2.15cm,headheight=16pt]{geometry}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor,fancyhdr,hyperref}
+\usepackage{microtype}
+\definecolor{navy}{HTML}{264B86}
+\definecolor{blue}{HTML}{356BA8}
+\definecolor{pink}{HTML}{B84F82}
+\definecolor{palepink}{HTML}{FBEAF2}
+\definecolor{pale}{HTML}{EAF3FB}
+\definecolor{gray}{HTML}{536171}
+\hypersetup{colorlinks=true,linkcolor=navy,urlcolor=blue,
+  pdftitle={常微分方程（第三版）第六章习题详细解答}}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.28em}
+\setlist[enumerate]{leftmargin=2.2em,itemsep=0.45em,topsep=0.35em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}《常微分方程》（第三版）习题解答}
+\fancyhead[R]{\small\color{pink}第六章·一阶偏微分方程初步}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\newcommand{\e}{\mathrm e}
+\newcommand{\R}{\mathbb R}
+\newcommand{\note}[1]{\par\smallskip\noindent\textcolor{pink}{\bfseries 说明：}#1\par\smallskip}
+\tcbset{
+  exercisebox/.style={enhanced,breakable,arc=0pt,outer arc=0pt,
+    boxsep=0pt,left=10pt,right=10pt,top=10pt,bottom=10pt,
+    before skip=10pt,after skip=6pt,
+    coltitle=navy,fonttitle=\bfseries,toptitle=6pt,bottomtitle=6pt,
+    titlerule=0.4pt}
+}
+\newtcolorbox{problem}[1]{exercisebox,
+  colback=white,colframe=blue,colbacktitle=pale,
+  boxrule=0.55pt,leftrule=2pt,
+  title={题目\quad #1}}
+\newtcolorbox{solution}{exercisebox,
+  colback=palepink!15!white,colframe=pink,colbacktitle=palepink,
+  boxrule=0.45pt,leftrule=2pt,
+  title={解答}}
+\newtcolorbox{analysis}{exercisebox,
+  colback=pale!30!white,colframe=blue,colbacktitle=pale,
+  boxrule=0.4pt,leftrule=2pt,
+  title={分析}}
+\newcommand{\sect}[1]{\section*{\textcolor{navy}{习题 #1}}}
+
+\begin{document}
+\begin{center}
+  {\LARGE\bfseries\color{navy}常微分方程（第三版）第六章习题解答\par}
+  \vspace{0.35em}
+  {\color{pink}一阶偏微分方程初步 · 习题 6.2--6.4\par}
+\end{center}
+\begin{center}
+  \small\color{gray}本答案使用 AI 工具制作，请读者确认正确性后再使用。除非题目另有说明，本稿接受隐式解。
+\end{center}
+\noindent\textcolor{gray}{\small 第 6.1 节无习题，本章习题从 6.2 开始。}
+
+\sect{6.2}
+\begin{problem}{6.2}
+求下列方程组的首次积分即通积分：
+\begin{enumerate}[label=(\arabic*)]
+\item $\begin{cases}
+\displaystyle \frac{dy}{dx}=\frac{z^2}{y},\\[5pt]
+\displaystyle \frac{dz}{dx}=\frac{y^2}{z};
+\end{cases}$
+\item $\begin{cases}
+\displaystyle \frac{dx}{dt}=\frac{y}{x-y},\\[5pt]
+\displaystyle \frac{dy}{dt}=\frac{x}{x-y};
+\end{cases}$
+\item $\displaystyle\frac{dx}{yz}=\frac{dy}{xz}=\frac{dz}{xy}$；
+\item $\displaystyle\frac{dx}{z-y}=\frac{dy}{x-z}=\frac{dz}{y-x}$；
+\item $\displaystyle\frac{dx}{x+y}
+=\frac{dy}{x-y}
+=\frac{z\,dz}{y^2-2xy-x^2}$。
+\end{enumerate}
+\note{第 (5) 小题按课本纸本第 202 页抄为 $z\,dz$。现有“原文核对版”题目文件误写成 $2\,dz$；两者不是同一道题。}
+\end{problem}
+\begin{solution}
+每一小题求出两个彼此独立的首次积分，再令它们分别等于任意常数，就得到通积分。求导中的点表示沿相应特征曲线的参数导数。
+\begin{enumerate}[label=(\arabic*)]
+\item 原式要求 $yz\ne0$。分别乘以 $2y,2z$，得到
+\[
+\frac{d(y^2)}{dx}=2z^2,\qquad
+\frac{d(z^2)}{dx}=2y^2.
+\]
+相加并记 $S=y^2+z^2$，则 $S'=2S$，故
+$(y^2+z^2)\e^{-2x}$ 沿解不变。另有
+\[
+\frac{d}{dx}(y^4-z^4)
+=4y^3\frac{z^2}{y}-4z^3\frac{y^2}{z}
+=4y^2z^2-4y^2z^2=0.
+\]
+因此在 $yz\ne0$ 的各个连通部分，通积分可写为
+\[
+\boxed{y^4-z^4=C_1,\qquad (y^2+z^2)\e^{-2x}=C_2.}
+\]
+
+\item 原式要求 $x\ne y$。直接作组合：
+\[
+\frac{d}{dt}(x^2-y^2)
+=2x\frac{y}{x-y}-2y\frac{x}{x-y}=0,
+\qquad
+\frac{d}{dt}(x-y)=\frac{y-x}{x-y}=-1.
+\]
+故两个首次积分及通积分为
+\[
+\boxed{x^2-y^2=C_1,\qquad x-y+t=C_2.}
+\]
+
+\item 在分式有意义的地方，引入共同参数 $s$，使
+$\dot x=yz,\ \dot y=xz,\ \dot z=xy$。于是
+\[
+\frac{d}{ds}(x^2-y^2)=2xyz-2xyz=0,\qquad
+\frac{d}{ds}(y^2-z^2)=2xyz-2xyz=0.
+\]
+因此通积分是
+\[
+\boxed{x^2-y^2=C_1,\qquad y^2-z^2=C_2.}
+\]
+上述参数方程在分母为零处仍可用来理解轨线；在坐标轴上向量场为零，这些点是退化的常值轨线。
+
+\item 取 $\dot x=z-y,\ \dot y=x-z,\ \dot z=y-x$。三式相加得
+$\dfrac{d}{ds}(x+y+z)=0$；另有
+\[
+\begin{aligned}
+\frac{d}{ds}(x^2+y^2+z^2)
+&=2x(z-y)+2y(x-z)+2z(y-x)=0.
+\end{aligned}
+\]
+所以通积分为
+\[
+\boxed{x+y+z=C_1,\qquad x^2+y^2+z^2=C_2.}
+\]
+几何上，非退化轨线位于平面与球面的交圆上；当 $x=y=z$ 时向量场为零。
+
+\item 这里必须使用题目中的 $z\,dz$。记
+$Q=y^2-2xy-x^2$。为了避免除以 $z$，把分式方程写成等价的局部特征参数式
+\[
+\dot x=z(x+y),\qquad
+\dot y=z(x-y),\qquad
+\dot z=Q.
+\]
+令 $J=x^2-2xy-y^2$，则
+\[
+\begin{aligned}
+\dot J
+&=2(x-y)\dot x-2(x+y)\dot y\\
+&=2z\bigl[(x-y)(x+y)-(x+y)(x-y)\bigr]=0.
+\end{aligned}
+\]
+又因为
+\[
+\frac{d}{ds}(x^2+y^2)
+=2z\bigl[x(x+y)+y(x-y)\bigr]
+=-2zQ,
+\qquad
+\frac{d}{ds}z^2=2zQ,
+\]
+第二个首次积分为 $x^2+y^2+z^2$。故通积分是
+\[
+\boxed{x^2+y^2+z^2=C_1,\qquad
+x^2-2xy-y^2=C_2.}
+\]
+这也与配套参考书给出的结果一致。
+\end{enumerate}
+\note{“通积分”中的两常数描述非退化特征曲线；若分式的分母或上述参数场同时消失，还需把相应的常值曲线单独理解。}
+\end{solution}
+
+\sect{6.3}
+
+\begin{problem}{6.3-1}
+求下列方程的通解：
+\begin{enumerate}[label=(\arabic*)]
+\item $\displaystyle
+y\frac{\partial z}{\partial x}
+-x\frac{\partial z}{\partial y}=0$；
+\item $\displaystyle
+\frac{\partial u}{\partial x}
++\frac{\partial u}{\partial y}
++\frac{\partial u}{\partial z}=0$；
+\item $\displaystyle
+(mz-ny)\frac{\partial u}{\partial x}
++(nx-lz)\frac{\partial u}{\partial y}
++(ly-mx)\frac{\partial u}{\partial z}=0$。
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 特征方程为
+$\dot x=y,\ \dot y=-x,\ \dot z=0$。
+沿特征线
+\[
+\frac{d}{ds}(x^2+y^2)=2xy+2y(-x)=0,
+\]
+而 $z$ 也不变。于是同一圆 $x^2+y^2=C$ 上 $z$ 取同一值，通解为
+\[
+\boxed{z=\Phi(x^2+y^2),}
+\]
+其中 $\Phi$ 为任意适当光滑的一元函数。代入可核对：
+$z_x=2x\Phi'$、$z_y=2y\Phi'$，故 $yz_x-xz_y=0$。
+
+\item 特征方程
+$\dot x=\dot y=\dot z=1,\ \dot u=0$。
+沿曲线有
+$\dfrac{d}{ds}(x-y)=1-1=0$、
+$\dfrac{d}{ds}(y-z)=1-1=0$，
+所以
+\[
+\boxed{u=\Phi(x-y,\ y-z),}
+\]
+其中 $\Phi$ 为任意适当光滑的二元函数。代入时三个偏导数相加为
+$\Phi_1+(-\Phi_1+\Phi_2)-\Phi_2=0$。
+
+\item 特征方程为
+\[
+\dot x=mz-ny,\quad
+\dot y=nx-lz,\quad
+\dot z=ly-mx,\quad
+\dot u=0.
+\]
+直接组合可得
+\[
+\begin{aligned}
+\frac{d}{ds}(lx+my+nz)
+&=l(mz-ny)+m(nx-lz)+n(ly-mx)=0,\\
+\frac{d}{ds}(x^2+y^2+z^2)
+&=2x(mz-ny)+2y(nx-lz)+2z(ly-mx)=0.
+\end{aligned}
+\]
+两个首次积分分别表示沿固定方向 $(l,m,n)$ 的投影（差一个固定倍数）和到原点的距离平方不变。因此，当 $(l,m,n)\ne(0,0,0)$ 时，在两个积分独立的区域内通解是
+\[
+\boxed{u=\Phi(lx+my+nz,\ x^2+y^2+z^2).}
+\]
+若 $l=m=n=0$，原方程成为 $0=0$，此时任意光滑函数 $u(x,y,z)$ 都是解。
+\note{在与 $(l,m,n)$ 平行的轴上，特征场为零，两个首次积分的梯度也不独立。上述通解公式按通常的特征线法在轴外局部使用，延至轴上时须检验光滑性。}
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{6.3-2}
+叙述求方程
+\[
+X(x,y)\frac{\partial z}{\partial x}
++Y(x,y)\frac{\partial z}{\partial y}=0
+\]
+通解的方法。
+\end{problem}
+\begin{solution}
+在 $(X,Y)\ne(0,0)$ 的区域，先求平面特征曲线
+\[
+\frac{dx}{ds}=X(x,y),\qquad
+\frac{dy}{ds}=Y(x,y).
+\]
+例如 $X\ne0$ 时可改写为 $dy/dx=Y/X$；求得一个首次积分
+$I(x,y)=C$，即
+\[
+X I_x+Y I_y=0,\qquad \nabla I\ne0.
+\]
+原方程沿特征曲线给出
+\[
+\frac{dz}{ds}
+=z_x\frac{dx}{ds}+z_y\frac{dy}{ds}
+=Xz_x+Yz_y=0.
+\]
+故 $z$ 在每条特征曲线上为常数，而不同特征曲线可取不同的值。局部通解因此为
+\[
+\boxed{z=\Phi(I(x,y)),}
+\]
+$\Phi$ 是任意适当光滑的一元函数。反向检验时，
+$Xz_x+Yz_y=\Phi'(I)(XI_x+YI_y)=0$。
+若 $X=Y=0$，特征方向退化，应单独检查该点及所需的光滑延拓。
+\end{solution}
+
+\begin{problem}{6.3-3}
+求下列方程柯西问题的解：
+\begin{enumerate}[label=(\arabic*)]
+\item $\displaystyle
+y\frac{\partial z}{\partial x}
++x\frac{\partial z}{\partial y}=0,
+\qquad \left.z\right|_{x=0}=2y$；
+\item $\displaystyle
+\frac{\partial z}{\partial x}
+-2x\frac{\partial z}{\partial y}=0,
+\qquad \left.z\right|_{x=1}=y^2$；
+\item $\displaystyle
+xy\frac{\partial u}{\partial z}
++xz\frac{\partial u}{\partial y}
++yz\frac{\partial u}{\partial x}=0,
+\qquad \left.u\right|_{y=y_0}=\varphi(x,z)$。
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 特征方程为
+$\dot x=y,\ \dot y=x,\ \dot z=0$。
+沿特征线
+\[
+\frac{d}{ds}(y^2-x^2)=2yx-2xy=0,
+\]
+故在远离退化点的局部区域内可写
+$z=\Phi(y^2-x^2)$。设特征线从初值点 $(0,\eta)$ 出发，则
+$y^2-x^2=\eta^2$，而 $z=2\eta$。初值点在上半轴 $\eta>0$ 时，
+$\eta=\sqrt{y^2-x^2}$；在下半轴 $\eta<0$ 时取负根。因此
+\[
+\boxed{
+z(x,y)=
+\begin{cases}
+2\sqrt{y^2-x^2},&y>|x|,\\[2pt]
+-2\sqrt{y^2-x^2},&y<-|x|.
+\end{cases}}
+\]
+每个公式在对应区域满足方程，并在 $x=0$ 的相应半轴给出 $z=2y$。区域 $|x|>|y|$ 内的特征线不与所给初值线的非零部分相交，因此初值不能确定那里的值。
+\note{初值线包含原点，而原点处 $(y,x)=(0,0)$，不满足通常的非特征条件。以上两支不能拼成原点邻域内的 $C^1$ 解：取 $y=r>0,x=cr$（$|c|<1$），所得 $z/r=2\sqrt{1-c^2}$；若在原点可微，这个方向导数应等于 $c\,z_x(0,0)+z_y(0,0)=c\,z_x(0,0)+2$，不可能对所有 $c$ 成立。}
+
+\item 特征方程为
+$\dot x=1,\ \dot y=-2x,\ \dot z=0$。
+因
+$\dfrac{d}{ds}(y+x^2)=-2x+2x=0$，
+设 $I=y+x^2$，通解为 $z=\Phi(I)$。在初值直线 $x=1$ 上，
+$\Phi(y+1)=y^2$，所以 $\Phi(s)=(s-1)^2$。答案为
+\[
+\boxed{z(x,y)=(y+x^2-1)^2.}
+\]
+代入有 $z_x=4x(y+x^2-1)$、$z_y=2(y+x^2-1)$，因此
+$z_x-2xz_y=0$，且 $z(1,y)=y^2$。
+
+\item 按 $x,y,z$ 排列，特征方程为
+\[
+\dot x=yz,\qquad \dot y=xz,\qquad
+\dot z=xy,\qquad \dot u=0.
+\]
+两个沿特征线不变的量是
+\[
+I_1=x^2-y^2,\qquad I_2=z^2-y^2,
+\]
+因为它们的导数都等于 $2xyz-2xyz=0$。
+设特征线与初始平面 $y=y_0$ 相交于 $(\xi,y_0,\zeta)$。
+比较两端的首次积分，得到
+\[
+\xi^2=x^2-y^2+y_0^2,\qquad
+\zeta^2=z^2-y^2+y_0^2.
+\]
+在初始点满足 $\xi\zeta\ne0$ 的局部区域，固定与该点相同的平方根符号，可写
+\[
+\boxed{
+u(x,y,z)=\varphi\!\left(
+\operatorname{sgn}(x)\sqrt{x^2-y^2+y_0^2},\
+\operatorname{sgn}(z)\sqrt{z^2-y^2+y_0^2}
+\right).}
+\]
+这里取邻域使 $x,z$ 不换号且两个根号内为正。于 $y=y_0$，
+两根号带符号后恰为 $x,z$，故满足初值。两个根号内的量沿特征线不变，故 $u$ 沿特征线不变，原方程随之成立。
+\note{初始平面的法向特征速度为 $\dot y=xz$，所以 $xz\ne0$ 是这套局部求解方法的非特征条件。在 $xz=0$ 的初始点，任意给定的 $\varphi$ 未必存在唯一的光滑延拓，不能无条件套用带根号的公式。}
+\end{enumerate}
+\end{solution}
+
+\sect{6.4}
+
+\begin{problem}{6.4-1}
+求下列方程的通解：
+\begin{enumerate}[label=(\arabic*)]
+\item $\displaystyle y\frac{\partial z}{\partial x}=z$；
+\item $\displaystyle
+\frac{\partial z}{\partial x}
++\frac{\partial z}{\partial y}=2z$；
+\item $\displaystyle
+(y^2+z^2-x^2)\frac{\partial z}{\partial x}
+-2xy\frac{\partial z}{\partial y}+2xz=0$。
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 在 $y\ne0$ 处，特征方程为
+\[
+\dot x=y,\qquad \dot y=0,\qquad \dot z=z.
+\]
+沿特征线 $y$ 为常数，并有
+$\dfrac{dz}{dx}=\dfrac{z}{y}$；分离变量积分得到
+$z\e^{-x/y}=C$。故局部通解可写成显式或隐式形式
+\[
+\boxed{z=\e^{x/y}\Phi(y)\quad(y\ne0),}
+\qquad\text{或}\qquad
+\Psi\bigl(y,z\e^{-x/y}\bigr)=0.
+\]
+显式形式代入原方程：$z_x=\e^{x/y}\Phi(y)/y=z/y$。
+\note{在 $y=0$ 上，原方程要求 $z(x,0)=0$。含 $x/y$ 的通解式不能直接代入 $y=0$；若要得到跨过该直线的光滑解，须另行选择 $\Phi$ 并检查延拓。}
+
+\item 特征方程为
+$\dot x=1,\ \dot y=1,\ \dot z=2z$。
+因 $\dfrac{d}{ds}(y-x)=0$ 且
+$\dfrac{d}{ds}(z\e^{-2x})
+=\e^{-2x}(2z-2z)=0$，
+两个首次积分为 $y-x$ 与 $z\e^{-2x}$。解出 $z$ 得
+\[
+\boxed{z=\e^{2x}\Phi(y-x).}
+\]
+求偏导并相加，得
+$z_x+z_y
+=\e^{2x}(2\Phi-\Phi')+\e^{2x}\Phi'
+=2z$。
+
+\item 将题目改写为
+$(y^2+z^2-x^2)z_x-2xyz_y=-2xz$，
+所以特征方程是
+\[
+\dot x=y^2+z^2-x^2,\qquad
+\dot y=-2xy,\qquad
+\dot z=-2xz.
+\]
+由后两式，$y$ 与 $z$ 的对数导数相同，故在 $y\ne0$ 处 $z/y$ 不变。再记 $S=x^2+y^2+z^2$，直接计算
+\[
+\begin{aligned}
+\dot S
+&=2x(y^2+z^2-x^2)-4xy^2-4xz^2\\
+&=-2x(x^2+y^2+z^2)=-2xS.
+\end{aligned}
+\]
+因为 $\dot y=-2xy$，所以 $S/y$ 也沿特征线不变。由此得到局部隐式通解
+\[
+\boxed{\Psi\!\left(
+\frac{z}{y},\ \frac{x^2+y^2+z^2}{y}
+\right)=0\qquad(y\ne0),}
+\]
+其中 $\Psi$ 为任意适当光滑的二元函数，并在所讨论的点选取能由该关系解出 $z=z(x,y)$ 的分支。两个分式均沿特征线不变，因此该分支满足原方程。
+\note{$y=0$ 处可换用 $z\ne0$ 的局部积分 $\bigl(y/z,\ S/z\bigr)$；$z\equiv0$ 也是在整个平面上成立的解。隐式关系表示的是可解成图形的局部积分曲面。}
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{6.4-2}
+叙述求方程
+\[
+X(x,y,z)\frac{\partial z}{\partial x}
++Y(x,y,z)\frac{\partial z}{\partial y}
+=R(x,y,z)
+\]
+通解的方法。
+\end{problem}
+\begin{solution}
+把 $(x,y,z)$ 视为三维空间中的点，先求特征曲线的参数方程
+\[
+\frac{dx}{ds}=X(x,y,z),\qquad
+\frac{dy}{ds}=Y(x,y,z),\qquad
+\frac{dz}{ds}=R(x,y,z),
+\]
+常简写为 $dx/X=dy/Y=dz/R$。求出两个独立的首次积分
+$I_1(x,y,z)$、$I_2(x,y,z)$，即
+\[
+XI_{j,x}+YI_{j,y}+RI_{j,z}=0
+\quad(j=1,2),\qquad
+\operatorname{rank}\frac{\partial(I_1,I_2)}{\partial(x,y,z)}=2.
+\]
+于是两积分之间的任意关系
+\[
+\boxed{\Phi\bigl(I_1(x,y,z),I_2(x,y,z)\bigr)=0}
+\]
+给出一族积分曲面。要把其中一张曲面作为所求的函数
+$z=z(x,y)$，还须在局部能够从这个关系解出 $z$。
+
+验证方法是记
+$F(x,y,z)=\Phi(I_1,I_2)$。两个首次积分使
+$XF_x+YF_y+RF_z=0$。若 $F_z\ne0$，由 $F(x,y,z(x,y))=0$ 微分得
+$z_x=-F_x/F_z$、$z_y=-F_y/F_z$，从而
+\[
+Xz_x+Yz_y
+=-\frac{XF_x+YF_y}{F_z}=R.
+\]
+这同时说明了为什么需要“能解出 $z$”这一局部条件。
+\end{solution}
+
+\begin{problem}{6.4-3}
+求下列方程柯西问题的解：
+\begin{enumerate}[label=(\arabic*)]
+\item $\displaystyle
+x\frac{\partial z}{\partial x}
++y\frac{\partial z}{\partial y}=2z,\qquad
+\left.z\right|_{x=1}=y$；
+\item $\displaystyle
+x\frac{\partial z}{\partial x}
++(y+x^2)\frac{\partial z}{\partial y}=z,\qquad
+\left.z\right|_{x=2}=y-4$；
+\item $\displaystyle
+x\frac{\partial u}{\partial x}
++y\frac{\partial u}{\partial y}
++z\frac{\partial u}{\partial z}=u,\qquad
+\left.u\right|_{x=2}=\frac12(y+z)$。
+\end{enumerate}
+\end{problem}
+\begin{solution}
+\begin{enumerate}[label=(\arabic*)]
+\item 特征方程为
+$\dot x=x,\ \dot y=y,\ \dot z=2z$。
+在 $x\ne0$ 处，计算得
+\[
+\frac{d}{ds}\frac{y}{x}=0,\qquad
+\frac{d}{ds}\frac{z}{x^2}=0.
+\]
+在初始直线 $x=1$ 上，$z=y$，故这两个首次积分的常数相同：
+$z/x^2=y/x$。于是
+\[
+\boxed{z=xy.}
+\]
+核对得 $xz_x+yz_y=xy+yx=2z$，且 $z(1,y)=y$。
+
+\item 特征方程为
+$\dot x=x,\ \dot y=y+x^2,\ \dot z=z$。
+在 $x\ne0$ 处有
+\[
+\frac{d}{ds}\frac{z}{x}=0,\qquad
+\frac{d}{ds}\left(\frac{y}{x}-x\right)
+=\frac{(y+x^2)x-yx}{x^2}-x=0.
+\]
+在 $x=2$ 上，$z=y-4$，因此
+$z/x=(y/x)-x=(y-4)/2$。
+沿特征线这两个值始终相等，解出
+\[
+\boxed{z=y-x^2.}
+\]
+代入得
+$xz_x+(y+x^2)z_y=-2x^2+y+x^2=y-x^2=z$，
+且 $z(2,y)=y-4$。
+
+\item 特征方程为
+$\dot x=x,\ \dot y=y,\ \dot z=z,\ \dot u=u$。
+在 $x\ne0$ 的区域，$y/x,z/x,u/x$ 都沿特征线不变。
+设初始平面上的点为 $(2,\eta,\zeta)$，则
+\[
+\left.\frac{u}{x}\right|_{x=2}
+=\frac{\eta+\zeta}{4}
+=\frac12\left(\frac{\eta}{2}+\frac{\zeta}{2}\right)
+=\frac12\left(\left.\frac{y}{x}\right|_{x=2}
++\left.\frac{z}{x}\right|_{x=2}\right).
+\]
+这关系沿特征线保持，故
+\[
+\boxed{u(x,y,z)=\frac{y+z}{2}.}
+\]
+它满足 $xu_x+yu_y+zu_z=y/2+z/2=u$，
+并且在 $x=2$ 上给出题定初值。
+\end{enumerate}
+\end{solution}
+
+\begin{problem}{6.4-4}
+叙述求方程
+\[
+X(x,y,z)\frac{\partial z}{\partial x}
++Y(x,y,z)\frac{\partial z}{\partial y}
+=R(x,y,z)
+\]
+满足初值条件
+\[
+\left.z\right|_{x=x_0}=\psi(y)
+\]
+的解的方法。
+\end{problem}
+\begin{solution}
+把初值曲线用参数 $\eta$ 写成
+\[
+(x,y,z)\big|_{\tau=0}
+=(x_0,\eta,\psi(\eta)).
+\]
+以该曲线上的每一点为起点，解特征常微分方程组
+\[
+\begin{cases}
+\dfrac{\partial\mathcal X}{\partial\tau}
+=X(\mathcal X,\mathcal Y,\mathcal Z),\\[4pt]
+\dfrac{\partial\mathcal Y}{\partial\tau}
+=Y(\mathcal X,\mathcal Y,\mathcal Z),\\[4pt]
+\dfrac{\partial\mathcal Z}{\partial\tau}
+=R(\mathcal X,\mathcal Y,\mathcal Z),
+\end{cases}
+\qquad
+(\mathcal X,\mathcal Y,\mathcal Z)(\eta,0)
+=(x_0,\eta,\psi(\eta)).
+\]
+这样得到一张由特征曲线扫出的参数曲面。
+若它向 $(x,y)$ 平面的投影在初值曲线附近可逆，就从
+\[
+x=\mathcal X(\eta,\tau),\qquad
+y=\mathcal Y(\eta,\tau)
+\]
+解出 $\eta=\eta(x,y)$、$\tau=\tau(x,y)$，再取
+\[
+\boxed{z(x,y)=
+\mathcal Z\bigl(\eta(x,y),\tau(x,y)\bigr).}
+\]
+由于 $\mathcal Z(\eta,0)=\psi(\eta)$，它满足初值条件。对恒等式
+$\mathcal Z(\eta,\tau)
+=z(\mathcal X(\eta,\tau),\mathcal Y(\eta,\tau))$
+沿 $\tau$ 求导，得到
+$\mathcal Z_\tau=z_x\mathcal X_\tau+z_y\mathcal Y_\tau$。
+由特征方程，三项参数导数分别是 $R,X,Y$，于是
+$R=Xz_x+Yz_y$，原偏微分方程也得到验证。
+
+上述可逆性在初值处可以直接检查。因为
+$\mathcal X_\eta(\eta,0)=0$、
+$\mathcal Y_\eta(\eta,0)=1$，
+有
+\[
+\left.\frac{\partial(\mathcal X,\mathcal Y)}
+{\partial(\eta,\tau)}\right|_{\tau=0}
+=
+\begin{vmatrix}
+0&X(x_0,\eta,\psi(\eta))\\
+1&Y(x_0,\eta,\psi(\eta))
+\end{vmatrix}
+=-X(x_0,\eta,\psi(\eta)).
+\]
+因此
+\[
+\boxed{X(x_0,\eta,\psi(\eta))\ne0}
+\]
+是这条初值曲线上的局部非特征条件。
+\note{若该值为零，不能直接使用上述唯一求解步骤。此时由初值 $z_y(x_0,\eta)=\psi'(\eta)$ 及原方程至少须有 $Y(x_0,\eta,\psi(\eta))\psi'(\eta)=R(x_0,\eta,\psi(\eta))$；即使相容，也还要另行分析存在性与唯一性。}
+\end{solution}
+
+\end{document}
